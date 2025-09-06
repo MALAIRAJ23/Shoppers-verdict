@@ -1,0 +1,82 @@
+:root {
+    --primary-color: #007bff;
+    --secondary-color: #6c757d;
+    --text-color: #333;
+    --bg-color: #fff;
+    --card-bg-color: #fff;
+    --card-border-color: #dee2e6;
+}
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.content-wrapper {
+    flex: 1;
+}
+
+.navbar {
+    background-color: #fff !important;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.navbar .navbar-brand,
+.navbar .nav-link {
+    color: #333 !important;
+}
+
+.card {
+    background-color: var(--card-bg-color) !important;
+    border: 1px solid var(--card-border-color) !important;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.15) !important;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 1rem 3rem rgba(0,0,0,0.175) !important;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    border: none;
+    transition: transform 0.2s ease;
+}
+
+.btn-primary:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.hero-section {
+    color: #333;
+    background-color: #f8f9fa;
+}
+
+.section-fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.section-fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.footer {
+    background-color: #f8f9fa;
+    color: #6c757d;
+    padding: 1rem 0;
+    text-align: center;
+    border-top: 1px solid #dee2e6;
+}
+
+.footer .text-muted {
+    color: #6c757d !important;
+}

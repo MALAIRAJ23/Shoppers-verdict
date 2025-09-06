@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+
+{% block title %}Shopper's Verdict - Smart Shopping Decisions{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<div class="container-fluid py-5 text-center hero-section">
+    <h1 class="display-4">Welcome to Shopper's Verdict</h1>
+    <p class="lead">Make smarter shopping decisions with AI-powered review analysis.</p>
+</div>
+
+<!-- Analyzer Form Section -->
+<div id="analyze" class="container my-5 section-fade-in">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card p-4 shadow-lg">
+                <h2 class="text-center mb-4">Analyze a Product</h2>
+                <form action="/analyze" method="post">
+                    <div class="mb-3">
+                        <label for="product_url" class="form-label fs-5">Enter Product URL</label>
+                        <input type="url" class="form-control form-control-lg" id="product_url" name="product_url" placeholder="e.g., https://www.flipkart.com/product/..." required>
+                    </div>
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary btn-lg">Get Verdict</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- How It Works Section -->
+<div class="container my-5 section-fade-in">
+    <div class="text-center mb-5">
+        <h2>How It Works</h2>
+        <p class="lead text-muted">In three simple steps, get the insights you need.</p>
+    </div>
+    <div class="row text-center">
+        <div class="col-md-4 mb-4">
+            <div class="card border-0 h-100">
+                <div class="card-body">
+                    <span class="fs-1 text-primary">1</span>
+                    <h3 class="card-title mt-3">Paste URL</h3>
+                    <p class="card-text">Copy the URL of the product you want to analyze from a supported e-commerce site.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card border-0 h-100">
+                <div class="card-body">
+                    <span class="fs-1 text-primary">2</span>
+                    <h3 class="card-title mt-3">Analyze Reviews</h3>
+                    <p class="card-text">Our AI scrapes and analyzes hundreds of reviews in seconds, identifying key themes and sentiments.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card border-0 h-100">
+                <div class="card-body">
+                    <span class="fs-1 text-primary">3</span>
+                    <h3 class="card-title mt-3">Get Verdict</h3>
+                    <p class="card-text">Receive a simple 'Worth-to-Buy' score, a list of pros and cons, and a detailed sentiment breakdown.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Features Section -->
+<div class="bg-light py-5 section-fade-in">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2>Key Features</h2>
+            <p class="lead text-muted">Everything you need to shop with confidence.</p>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">Worth-to-Buy Score</h5>
+                        <p class="card-text">A single, easy-to-understand score from 0 to 100 that tells you if a product is worth your money.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">Pros & Cons</h5>
+                        <p class="card-text">Quickly see the top positive and negative points about a product, summarized from all reviews.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">Aspect Analysis</h5>
+                        <p class="card-text">Understand sentiment towards specific features like 'battery', 'camera', or 'build quality'.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Final CTA -->
+<div class="container my-5 text-center section-fade-in">
+    <h2>Ready to get started?</h2>
+    <p class="lead text-muted">Analyze your first product now and see the difference.</p>
+    <a href="#analyze" class="btn btn-primary btn-lg">Analyze a Product</a>
+</div>
+{% endblock %}

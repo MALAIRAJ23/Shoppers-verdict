@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+
+{% block title %}Shopper's Verdict - Results{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="text-center mb-4">
+        <h1>Verdict</h1>
+        <p class="lead">Analysis for <a href="{{ product_url }}" target="_blank">{{ product_url | truncate(80) }}</a></p>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card text-center shadow-sm mb-4">
+                <div class="card-header">
+                    Worth-to-Buy Score
+                </div>
+                <div class="card-body">
+                    <h2 class="display-3" id="score-display">{{ score }}/100</h2>
+                    <div class="progress" style="height: 25px;">
+                        <div id="score-bar" class="progress-bar" role="progressbar" style="width: {{ score }}%;" aria-valuenow="{{ score }}" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 mb-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h3 class="card-title text-success">Pros</h3>
+                    <ul class="list-group list-group-flush">
+                        {% for aspect, sentiment in pros %}
+                            <li class="list-group-item"><strong>{{ aspect|capitalize }}:</strong> <span class="badge bg-success-light text-dark">Positive</span> (Score: {{ sentiment }})</li>
+                        {% else %}
+                            <li class="list-group-item">Not enough data to determine distinct pros.</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 mb-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h3 class="card-title text-danger">Cons</h3>
+                    <ul class="list-group list-group-flush">
+                        {% for aspect, sentiment in cons %}
+                            <li class="list-group-item"><strong>{{ aspect|capitalize }}:</strong> <span class="badge bg-danger-light text-dark">Negative</span> (Score: {{ sentiment }})</li>
+                        {% else %}
+                            <li class="list-group-item">No distinct cons found.</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+        <div class="card-header">
+            Analysis Details
+        </div>
+        <div class="card-body">
+            <p><strong>Overall Sentiment Distribution:</strong>
+                <span class="badge bg-success">{{ analysis.overall_sentiment.positive or 0 }} Positive</span>
+                <span class="badge bg-danger">{{ analysis.overall_sentiment.negative or 0 }} Negative</span>
+                <span class="badge bg-secondary">{{ analysis.overall_sentiment.neutral or 0 }} Neutral</span>
+            </p>
+            <hr>
+            <p><strong>Top Aspect Sentiments:</strong></p>
+            <ul class="list-group">
+                {% for aspect, sentiment in analysis.aspect_sentiments.items() %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        {{ aspect|capitalize }}
+                        <span class="badge bg-primary rounded-pill">Score: {{ sentiment }}</span>
+                    </li>
+                {% else %}
+                    <li class="list-group-item">No specific aspects were identified.</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <div class="text-center mt-4 mb-5">
+        <a href="/" class="btn btn-secondary">Analyze another product</a>
+    </div>
+</div>
+
+<style>
+    .bg-success-light {
+        background-color: #e9f5ea;
+    }
+    .bg-danger-light {
+        background-color: #fdecea;
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const score = {{ score }};
+        const scoreBar = document.getElementById('score-bar');
+        let colorClass = 'bg-danger';
+        if (score >= 50) colorClass = 'bg-warning';
+        if (score >= 75) colorClass = 'bg-success';
+        scoreBar.classList.add(colorClass);
+    });
+</script>
+{% endblock %}
