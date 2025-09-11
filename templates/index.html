@@ -3,12 +3,41 @@
 {% block title %}Shopper's Verdict - Smart Shopping Decisions{% endblock %}
 
 {% block content %}
-<!-- Hero Section -->
-<div class="container-fluid py-5 text-center hero-section">
-    <h1 class="display-4">Welcome to Shopper's Verdict</h1>
-    <p class="lead">Make smarter shopping decisions with AI-powered review analysis.</p>
-</div>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 
+<!-- Hero Section -->
+<section class="hero-section">
+    <h1 class="hero-title">Welcome to Shopper's Verdict</h1>
+    <p class="hero-subtitle">Make smarter shopping decisions with AI-powered review analysis.</p>
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.14.0/gsap.min.js">
+    const hero = document.querySelector('.hero-title');
+const text = hero.textContent;
+hero.textContent = '';
+
+// Split text into spans
+text.split('').forEach(char => {
+    const span = document.createElement('span');
+    span.textContent = char;
+    hero.appendChild(span);
+});
+
+// Animate letters with GSAP
+gsap.fromTo(
+    ".hero-title span",
+    { y: -50, opacity: 0, rotation: -10 }, // start position
+    {
+        y: 0,
+        opacity: 1,
+        rotation: 0,
+        stagger: 0.1,     // letters fall one by one
+        ease: "bounce.out", // smooth bounce effect
+        duration: 0.8
+    }
+);
+
+</script>
 <!-- Analyzer Form Section -->
 <div id="analyze" class="container my-5 section-fade-in">
     <div class="row justify-content-center">

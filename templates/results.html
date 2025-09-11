@@ -1,66 +1,349 @@
 {% extends 'base.html' %}
 
-{% block title %}Shopper's Verdict - Results{% endblock %}
+{% block title %}Shopper's Verdict - Analysis Results{% endblock %}
 
 {% block content %}
-<div class="container mt-5">
-    <div class="text-center mb-4">
-        <h1>Verdict</h1>
-        <p class="lead">Analysis for <a href="{{ product_url }}" target="_blank">{{ product_url | truncate(80) }}</a></p>
+<!-- Enhanced Results Header -->
+<div class="results-header">
+    <div class="container">
+        <div class="text-center py-4">
+            <h1 class="verdict-title">📊 Analysis Complete</h1>
+            {% if product_title %}
+                <h2 class="product-title">{{ product_title }}</h2>
+            {% endif %}
+            <p class="product-url-display">Analysis for <a href="{{ product_url }}" target="_blank" class="product-link">{{ product_url | truncate(80) }}</a></p>
+        </div>
     </div>
+</div>
 
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card text-center shadow-sm mb-4">
-                <div class="card-header">
-                    Worth-to-Buy Score
-                </div>
-                <div class="card-body">
-                    <h2 class="display-3" id="score-display">{{ score }}/100</h2>
-                    <div class="progress" style="height: 25px;">
-                        <div id="score-bar" class="progress-bar" role="progressbar" style="width: {{ score }}%;" aria-valuenow="{{ score }}" aria-valuemin="0" aria-valuemax="100"></div>
+<div class="container mt-4">
+    <!-- Enhanced Score Card -->
+    <div class="row justify-content-center mb-5">
+        <div class="col-lg-10">
+            <div class="score-card-wrapper">
+                <div class="score-main-card">
+                    <div class="score-header">
+                        <h2>🎯 Worth-to-Buy Score</h2>
+                        <p class="score-subtitle">Based on comprehensive analysis of customer reviews</p>
+                    </div>
+                    
+                    <div class="score-display-container">
+                        <div class="circular-progress" data-score="{{ score }}">
+                            <svg width="180" height="180" viewBox="0 0 180 180">
+                                <circle class="circle-bg" cx="90" cy="90" r="84"></circle>
+                                <circle class="circle-fill" id="score-circle" cx="90" cy="90" r="84"></circle>
+                            </svg>
+                            <div class="score-text">
+                                <span class="score-number" id="animated-score">0</span>
+                                <span class="score-suffix">/100</span>
+                            </div>
+                        </div>
+                        
+                        <div class="score-interpretation">
+                            {% if score >= 80 %}
+                                <div class="score-badge excellent">🏆 Excellent Buy</div>
+                                <p class="score-message">This product has outstanding reviews and is highly recommended!</p>
+                            {% elif score >= 70 %}
+                                <div class="score-badge good">✅ Good Buy</div>
+                                <p class="score-message">This product is recommended with mostly positive feedback.</p>
+                            {% elif score >= 50 %}
+                                <div class="score-badge average">⚡ Average</div>
+                                <p class="score-message">Mixed reviews - consider your specific needs before buying.</p>
+                            {% elif score >= 30 %}
+                                <div class="score-badge poor">⚠️ Poor</div>
+                                <p class="score-message">Many negative reviews - proceed with caution.</p>
+                            {% else %}
+                                <div class="score-badge avoid">🚫 Avoid</div>
+                                <p class="score-message">Predominantly negative reviews - not recommended.</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    <!-- Enhanced Score Breakdown -->
+                    <div class="score-breakdown">
+                        <h4>📊 Detailed Score Analysis</h4>
+                        
+                        <!-- Quality Metrics -->
+                        <div class="quality-metrics mb-4">
+                            <div class="row text-center">
+                                <div class="col-4">
+                                    <div class="metric-card">
+                                        <div class="metric-value">{{ analysis.meta.reviews_used or 0 }}</div>
+                                        <div class="metric-label">Reviews Analyzed</div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="metric-card">
+                                        <div class="metric-value">{{ analysis.meta.sentences or 0 }}</div>
+                                        <div class="metric-label">Sentences Processed</div>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="metric-card">
+                                        <div class="metric-value">{{ analysis.aspect_sentiments|length }}</div>
+                                        <div class="metric-label">Key Aspects</div>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="metric-card confidence-card">
+                                        <div class="metric-value confidence-value" data-confidence="{{ (analysis.meta.confidence * 100) | round }}">
+                                            {{ (analysis.meta.confidence * 100) | round }}%
+                                        </div>
+                                        <div class="metric-label">Analysis Confidence</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Sentiment Distribution -->
+                        <div class="breakdown-bars">
+                            {% set overall = analysis.overall_sentiment or {} %}
+                            {% set total_reviews = (overall.positive or 0) + (overall.negative or 0) + (overall.neutral or 0) %}
+                            {% if total_reviews > 0 %}
+                                {% set pos_pct = ((overall.positive or 0) / total_reviews * 100) | round(1) %}
+                                {% set neu_pct = ((overall.neutral or 0) / total_reviews * 100) | round(1) %}
+                                {% set neg_pct = ((overall.negative or 0) / total_reviews * 100) | round(1) %}
+                            {% else %}
+                                {% set pos_pct = 0 %}
+                                {% set neu_pct = 0 %}
+                                {% set neg_pct = 0 %}
+                            {% endif %}
+                            
+                            <div class="breakdown-item">
+                                <label>Positive Reviews ({{ pos_pct }}%)</label>
+                                <div class="progress-bar-custom positive">
+                                    <div class="fill" style="width: {{ pos_pct }}%"></div>
+                                </div>
+                            </div>
+                            <div class="breakdown-item">
+                                <label>Neutral Reviews ({{ neu_pct }}%)</label>
+                                <div class="progress-bar-custom neutral">
+                                    <div class="fill" style="width: {{ neu_pct }}%"></div>
+                                </div>
+                            </div>
+                            <div class="breakdown-item">
+                                <label>Negative Reviews ({{ neg_pct }}%)</label>
+                                <div class="progress-bar-custom negative">
+                                    <div class="fill" style="width: {{ neg_pct }}%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="voice-controls">
+                        <button id="voice-verdict-btn" class="btn-voice" type="button">
+                            <i class="bi bi-volume-up-fill"></i> Hear Verdict
+                        </button>
+                        <div class="d-none">
+                            <p id="voice-verdict-text">{{ voice_verdict }}</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-md-6 mb-4">
-            <div class="card h-100 shadow-sm">
-                <div class="card-body">
-                    <h3 class="card-title text-success">Pros</h3>
-                    <ul class="list-group list-group-flush">
+    <!-- Enhanced Pros & Cons Section -->
+    <div class="row mb-5">
+        <div class="col-lg-6 mb-4">
+            <div class="pros-cons-card pros-card">
+                <div class="card-header-custom pros-header">
+                    <h3>😍 What Customers Love</h3>
+                    <div class="header-decoration"></div>
+                </div>
+                <div class="card-body-custom">
+                    {% if pros %}
                         {% for aspect, sentiment in pros %}
-                            <li class="list-group-item"><strong>{{ aspect|capitalize }}:</strong> <span class="badge bg-success-light text-dark">Positive</span> (Score: {{ sentiment }})</li>
-                        {% else %}
-                            <li class="list-group-item">Not enough data to determine distinct pros.</li>
+                            <div class="aspect-item positive-aspect">
+                                <div class="aspect-content">
+                                    <div class="aspect-name">{{ aspect|capitalize }}</div>
+                                    <div class="aspect-score positive-score">
+                                        <span class="score-value">{{ "%.2f"|format(sentiment) }}</span>
+                                        <div class="score-bar">
+                                            {% set normalized_score = ((sentiment + 1) / 2 * 100) | round(0) %}
+                                            <div class="fill positive-fill" style="width: {{ normalized_score }}%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="aspect-icon">💪</div>
+                            </div>
                         {% endfor %}
-                    </ul>
+                    {% else %}
+                        <div class="no-data-message">
+                            <i class="bi bi-info-circle"></i>
+                            <p>Not enough data to determine distinct positive aspects.</p>
+                        </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
-        <div class="col-md-6 mb-4">
-            <div class="card h-100 shadow-sm">
-                <div class="card-body">
-                    <h3 class="card-title text-danger">Cons</h3>
-                    <ul class="list-group list-group-flush">
+        
+        <div class="col-lg-6 mb-4">
+            <div class="pros-cons-card cons-card">
+                <div class="card-header-custom cons-header">
+                    <h3>😔 Customer Concerns</h3>
+                    <div class="header-decoration"></div>
+                </div>
+                <div class="card-body-custom">
+                    {% if cons %}
                         {% for aspect, sentiment in cons %}
-                            <li class="list-group-item"><strong>{{ aspect|capitalize }}:</strong> <span class="badge bg-danger-light text-dark">Negative</span> (Score: {{ sentiment }})</li>
-                        {% else %}
-                            <li class="list-group-item">No distinct cons found.</li>
+                            <div class="aspect-item negative-aspect">
+                                <div class="aspect-content">
+                                    <div class="aspect-name">{{ aspect|capitalize }}</div>
+                                    <div class="aspect-score negative-score">
+                                        <span class="score-value">{{ "%.2f"|format(sentiment) }}</span>
+                                        <div class="score-bar">
+                                            {% set normalized_score = (sentiment | abs * 100) | round(0) %}
+                                            <div class="fill negative-fill" style="width: {{ normalized_score }}%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="aspect-icon">👎</div>
+                            </div>
                         {% endfor %}
-                    </ul>
+                    {% else %}
+                        <div class="no-data-message">
+                            <i class="bi bi-info-circle"></i>
+                            <p>No significant negative aspects identified in reviews.</p>
+                        </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
     </div>
+    
+    <!-- Product Description Analysis Section -->
+    {% if description_analysis %}
+    <div class="row mb-5">
+        <div class="col-12">
+            <div class="description-analysis-card">
+                <div class="card-header-custom description-header">
+                    <h3>📋 Product Description Analysis</h3>
+                    <div class="header-decoration"></div>
+                </div>
+                <div class="card-body-custom">
+                    <!-- Usability Score -->
+                    <div class="usability-score-section mb-4">
+                        <div class="row align-items-center">
+                            <div class="col-md-4">
+                                <div class="usability-circle" data-score="{{ description_analysis.usability_score }}">
+                                    <svg width="120" height="120" viewBox="0 0 120 120">
+                                        <circle class="usability-bg" cx="60" cy="60" r="54"></circle>
+                                        <circle class="usability-fill" id="usability-circle" cx="60" cy="60" r="54"></circle>
+                                    </svg>
+                                    <div class="usability-text">
+                                        <span class="usability-number">{{ description_analysis.usability_score }}</span>
+                                        <span class="usability-suffix">/100</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="usability-interpretation">
+                                    {% if description_analysis.usability_verdict == 'excellent' %}
+                                        <div class="usability-badge excellent">🏆 Excellent to Use</div>
+                                    {% elif description_analysis.usability_verdict == 'good' %}
+                                        <div class="usability-badge good">✅ Good to Use</div>
+                                    {% elif description_analysis.usability_verdict == 'average' %}
+                                        <div class="usability-badge average">⚡ Average</div>
+                                    {% elif description_analysis.usability_verdict == 'poor' %}
+                                        <div class="usability-badge poor">⚠️ Consider Alternatives</div>
+                                    {% else %}
+                                        <div class="usability-badge avoid">🚫 Avoid</div>
+                                    {% endif %}
+                                    <p class="usability-summary">{{ description_analysis.summary }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Key Features -->
+                    {% if description_analysis.key_features %}
+                    <div class="features-section mb-4">
+                        <h4>🔑 Key Features</h4>
+                        <ul class="features-list">
+                            {% for feature in description_analysis.key_features %}
+                                <li class="feature-item">{{ feature }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endif %}
+                    
+                    <!-- Description Pros and Cons -->
+                    <div class="row">
+                        {% if description_analysis.pros %}
+                        <div class="col-md-6">
+                            <h4 class="desc-pros-title">😀 Description Highlights</h4>
+                            <ul class="desc-list pros-list">
+                                {% for pro in description_analysis.pros %}
+                                    <li class="desc-item positive">{{ pro }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        {% endif %}
+                        
+                        {% if description_analysis.cons %}
+                        <div class="col-md-6">
+                            <h4 class="desc-cons-title">😔 Potential Concerns</h4>
+                            <ul class="desc-list cons-list">
+                                {% for con in description_analysis.cons %}
+                                    <li class="desc-item negative">{{ con }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    {% if insight %}
+    <div class="alert alert-info shadow-sm">{{ insight }}</div>
+    {% endif %}
+
+    {% set support = analysis.aspect_support or {} %}
+    {% if support %}
+    <div class="card shadow-sm mb-4">
+        <div class="card-header">Aspect Evidence</div>
+        <div class="card-body">
+            <div class="accordion" id="evidenceAccordion">
+                {% for aspect, sentiment in analysis.aspect_sentiments.items() %}
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading-{{ loop.index }}">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-{{ loop.index }}" aria-expanded="false" aria-controls="collapse-{{ loop.index }}">
+                            <strong class="me-2">{{ aspect|capitalize }}</strong>
+                            <span class="badge bg-primary">Score: {{ sentiment }}</span>
+                        </button>
+                    </h2>
+                    <div id="collapse-{{ loop.index }}" class="accordion-collapse collapse" aria-labelledby="heading-{{ loop.index }}" data-bs-parent="#evidenceAccordion">
+                        <div class="accordion-body">
+                            <ul class="list-group list-group-flush">
+                                {% for s in support.get(aspect, []) %}
+                                <li class="list-group-item">{{ s }}</li>
+                                {% else %}
+                                <li class="list-group-item">No supporting sentences found.</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% endif %}
 
     <div class="card shadow-sm mb-4">
         <div class="card-header">
             Analysis Details
         </div>
         <div class="card-body">
+            {% set meta = analysis.meta or {} %}
+            <p class="mb-2">
+                <span class="badge bg-dark me-2">Reviews used: {{ meta.reviews_used or 0 }}</span>
+                <span class="badge bg-secondary me-2">Sentences analyzed: {{ meta.sentences or 0 }}</span>
+            </p>
             <p><strong>Overall Sentiment Distribution:</strong>
                 <span class="badge bg-success">{{ analysis.overall_sentiment.positive or 0 }} Positive</span>
                 <span class="badge bg-danger">{{ analysis.overall_sentiment.negative or 0 }} Negative</span>
@@ -81,28 +364,1036 @@
         </div>
     </div>
 
+    {% if price_history %}
+    <div class="card shadow-sm mb-4">
+        <div class="card-header">
+            Price History
+        </div>
+        <div class="card-body">
+            <canvas id="priceChart"></canvas>
+        </div>
+    </div>
+    {% endif %}
+
     <div class="text-center mt-4 mb-5">
         <a href="/" class="btn btn-secondary">Analyze another product</a>
     </div>
 </div>
 
 <style>
-    .bg-success-light {
-        background-color: #e9f5ea;
+/* Enhanced Results Page Styling - Lilac Theme */
+:root {
+    --primary-color: #9b59b6;
+    --primary-color-dark: #6a1b9a;
+    --primary-color-light: #d6b4fc;
+    --accent-color: #b57edc;
+    --accent-color-2: #a66dd4;
+    --primary-gradient: linear-gradient(135deg, #b57edc 0%, #7a3db8 100%);
+    --primary-gradient-alt: linear-gradient(135deg, #a66dd4, #6a1b9a);
+    --text-color: #2f2a33;
+    --muted-text-color: #6a6670;
+    --bg-color: #f6f3fa;
+    --card-bg-color: #ffffff;
+    --card-border-color: #e9e3f3;
+    --shadow-color: rgba(106, 27, 154, 0.15);
+    --transition-fast: 0.25s ease;
+}
+.results-header {
+    background: var(--primary-gradient);
+    color: white;
+    margin-top: -20px;
+    margin-bottom: 0;
+}
+
+.verdict-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.product-url-display {
+    font-size: 1.1rem;
+    opacity: 0.9;
+}
+
+.product-link {
+    color: #fff;
+    text-decoration: underline;
+    transition: opacity 0.3s ease;
+}
+
+.product-link:hover {
+    color: #fff;
+    opacity: 0.8;
+}
+
+.product-title {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #fff;
+    margin: 1rem 0;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+/* Score Card Styling */
+.score-card-wrapper {
+    perspective: 1000px;
+}
+
+.score-main-card {
+    background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1), 0 0 0 1px rgba(255,255,255,0.5);
+    padding: 2.5rem;
+    position: relative;
+    overflow: hidden;
+    transform-style: preserve-3d;
+    transition: transform 0.6s ease;
+}
+
+.score-main-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    transition: left 0.6s ease;
+}
+
+.score-main-card:hover::before {
+    left: 100%;
+}
+
+.score-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.score-header h2 {
+    color: #2d3748;
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.score-subtitle {
+    color: #718096;
+    font-size: 1.1rem;
+}
+
+/* Circular Progress */
+.score-display-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3rem;
+    margin: 2rem 0;
+}
+
+.circular-progress {
+    position: relative;
+    width: 180px;
+    height: 180px;
+}
+
+.circle-bg, .circle-fill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 12px solid transparent;
+}
+
+.circle-bg {
+    border-color: #e2e8f0;
+}
+
+.circle-fill {
+    border-top-color: #48bb78;
+    border-right-color: #48bb78;
+    transform: rotate(-90deg);
+    transition: transform 2s ease-in-out;
+}
+
+.score-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.score-number {
+    font-size: 3rem;
+    font-weight: 800;
+    color: #2d3748;
+    display: block;
+    line-height: 1;
+}
+
+.score-suffix {
+    font-size: 1.2rem;
+    color: #718096;
+    font-weight: 600;
+}
+
+.score-interpretation {
+    text-align: center;
+}
+
+.score-badge {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.score-badge.excellent {
+    background: linear-gradient(135deg, #b57edc, #7a3db8);
+    color: white;
+}
+
+.score-badge.good {
+    background: linear-gradient(135deg, #a66dd4, #6a1b9a);
+    color: white;
+}
+
+.score-badge.average {
+    background: linear-gradient(135deg, #edc0ff, #b57edc);
+    color: #3a2f45;
+}
+
+.score-badge.poor {
+    background: linear-gradient(135deg, #f2994a, #dd6b20);
+    color: white;
+}
+
+.score-badge.avoid {
+    background: linear-gradient(135deg, #e74c3c, #ad0000);
+    color: white;
+}
+
+.score-message {
+    font-size: 1.1rem;
+    color: #4a5568;
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+/* Score Breakdown */
+.score-breakdown {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 2px solid #e2e8f0;
+}
+
+.score-breakdown h4 {
+    color: #2d3748;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.quality-metrics .metric-card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 1rem;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+.metric-value {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #2d3748;
+}
+
+.metric-label {
+    font-size: 0.9rem;
+    color: #718096;
+}
+
+.confidence-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.confidence-value {
+    transition: all 0.3s ease;
+}
+
+.confidence-value[data-confidence^="9"],
+.confidence-value[data-confidence^="8"] {
+    color: #38a169 !important;
+    text-shadow: 0 0 8px rgba(56, 161, 105, 0.3);
+}
+
+.confidence-value[data-confidence^="7"],
+.confidence-value[data-confidence^="6"] {
+    color: #4299e1 !important;
+}
+
+.confidence-value[data-confidence^="5"],
+.confidence-value[data-confidence^="4"] {
+    color: #ed8936 !important;
+}
+
+.confidence-value[data-confidence^="3"],
+.confidence-value[data-confidence^="2"],
+.confidence-value[data-confidence^="1"] {
+    color: #f56565 !important;
+}
+
+.breakdown-bars {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.breakdown-item {
+    margin-bottom: 1rem;
+}
+
+.breakdown-item label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: #4a5568;
+}
+
+.progress-bar-custom {
+    height: 12px;
+    background: #e2e8f0;
+    border-radius: 6px;
+    overflow: hidden;
+    position: relative;
+}
+
+.progress-bar-custom .fill {
+    height: 100%;
+    border-radius: 6px;
+    transition: width 1.5s ease-out;
+    position: relative;
+    overflow: hidden;
+}
+
+.progress-bar-custom.positive .fill {
+    background: linear-gradient(90deg, #b57edc, #7a3db8);
+}
+
+.progress-bar-custom.neutral .fill {
+    background: linear-gradient(90deg, #c9a7e8, #b57edc);
+}
+
+.progress-bar-custom.negative .fill {
+    background: linear-gradient(90deg, #e74c3c, #ff7b73);
+}
+
+/* Voice Controls */
+.voice-controls {
+    text-align: center;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 2px solid #e2e8f0;
+}
+
+.btn-voice {
+    background: var(--primary-gradient);
+    color: white;
+    border: none;
+    padding: 0.75rem 2rem;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    box-shadow: 0 4px 18px rgba(106, 27, 154, 0.3);
+    transition: all 0.3s ease;
+}
+
+.btn-voice:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 28px rgba(106, 27, 154, 0.45);
+    color: white;
+    background: var(--primary-gradient-alt);
+}
+
+.btn-voice.speaking {
+    animation: pulse 1.5s infinite;
+}
+
+/* Pros & Cons Cards */
+.pros-cons-card {
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    background: white;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.pros-cons-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+}
+
+.card-header-custom {
+    padding: 1.5rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.pros-header {
+    background: linear-gradient(135deg, #b57edc, #7a3db8);
+    color: white;
+}
+
+.cons-header {
+    background: linear-gradient(135deg, #e74c3c, #ad0000);
+    color: white;
+}
+
+.card-header-custom h3 {
+    margin: 0;
+    font-size: 1.3rem;
+    font-weight: 700;
+}
+
+.header-decoration {
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+    transform: rotate(45deg);
+}
+
+.card-body-custom {
+    padding: 1.5rem;
+}
+
+.aspect-item {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.positive-aspect {
+    background: linear-gradient(135deg, #f4ecfb, #efe3fb);
+    border-left: 4px solid #b57edc;
+}
+
+.negative-aspect {
+    background: linear-gradient(135deg, #fff2f2, #ffe1e1);
+    border-left: 4px solid #e74c3c;
+}
+
+.aspect-item:hover {
+    transform: translateX(5px);
+}
+
+.aspect-content {
+    flex: 1;
+}
+
+.aspect-name {
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: #2d3748;
+    margin-bottom: 0.5rem;
+}
+
+.aspect-score {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.score-value {
+    font-size: 0.9rem;
+    font-weight: 600;
+    min-width: 40px;
+}
+
+.positive-score .score-value {
+    color: #38a169;
+}
+
+.negative-score .score-value {
+    color: #e53e3e;
+}
+
+.score-bar {
+    flex: 1;
+    height: 6px;
+    background: rgba(0,0,0,0.1);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.positive-fill {
+    background: linear-gradient(90deg, #b57edc, #7a3db8);
+}
+
+.negative-fill {
+    background: linear-gradient(90deg, #e74c3c, #ff7b73);
+}
+
+.aspect-icon {
+    font-size: 1.5rem;
+    margin-left: 1rem;
+}
+
+.no-data-message {
+    text-align: center;
+    padding: 2rem;
+    color: #718096;
+}
+
+.no-data-message i {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    display: block;
+}
+
+/* Animations */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
     }
-    .bg-danger-light {
-        background-color: #fdecea;
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
+}
+
+.score-main-card {
+    animation: slideInUp 0.8s ease-out;
+}
+
+.pros-cons-card {
+    animation: slideInUp 0.8s ease-out;
+}
+
+.pros-card {
+    animation-delay: 0.2s;
+}
+
+.cons-card {
+    animation-delay: 0.4s;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .verdict-title {
+        font-size: 2rem;
+    }
+    
+    .score-display-container {
+        flex-direction: column;
+        gap: 2rem;
+    }
+    
+    .circular-progress {
+        width: 150px;
+        height: 150px;
+    }
+    
+    .score-number {
+        font-size: 2.5rem;
+    }
+    
+    .score-main-card {
+        padding: 1.5rem;
+    }
+}
 </style>
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const score = {{ score }};
-        const scoreBar = document.getElementById('score-bar');
-        let colorClass = 'bg-danger';
-        if (score >= 50) colorClass = 'bg-warning';
-        if (score >= 75) colorClass = 'bg-success';
-        scoreBar.classList.add(colorClass);
+        
+        // Animate circular progress
+        animateCircularProgress(score);
+        
+        // Animate score number
+        animateScoreNumber(score);
+        
+        // Animate usability circle if present
+        const usabilityCircle = document.querySelector('.usability-circle');
+        if (usabilityCircle) {
+            const usabilityScore = parseInt(usabilityCircle.getAttribute('data-score'));
+            animateUsabilityCircle(usabilityScore);
+        }
+        
+        // Animate progress bars with delay
+        setTimeout(() => {
+            animateProgressBars();
+        }, 1000);
+        
+        // Voice Verdict functionality
+        const voiceVerdictBtn = document.getElementById('voice-verdict-btn');
+        const voiceVerdictText = document.getElementById('voice-verdict-text');
+        
+        voiceVerdictBtn.addEventListener('click', function() {
+            // Check if speech synthesis is supported
+            if ('speechSynthesis' in window) {
+                // Get the verdict text
+                const verdictText = voiceVerdictText.textContent;
+                
+                // Create a new speech synthesis utterance
+                const utterance = new SpeechSynthesisUtterance(verdictText);
+                
+                // Configure the utterance
+                utterance.lang = 'en-US';
+                utterance.rate = 1.0;
+                utterance.pitch = 1.0;
+                
+                // Add visual feedback when speaking
+                voiceVerdictBtn.classList.add('speaking');
+                
+                // Add event listeners for speech events
+                utterance.onend = function() {
+                    voiceVerdictBtn.classList.remove('speaking');
+                };
+                
+                utterance.onerror = function() {
+                    voiceVerdictBtn.classList.remove('speaking');
+                    alert('Sorry, there was an error with the speech synthesis.');
+                };
+                
+                // Speak the text
+                window.speechSynthesis.speak(utterance);
+            } else {
+                alert('Sorry, your browser does not support speech synthesis.');
+            }
+        });
+
+        {% if price_history %}
+        const priceCtx = document.getElementById('priceChart').getContext('2d');
+        const priceData = {
+            labels: [{% for item in price_history %}"{{ item.timestamp }}"{% if not loop.last %},{% endif %}{% endfor %}],
+            datasets: [{
+                label: 'Price',
+                data: [{% for item in price_history %}{{ item.price }}{% if not loop.last %},{% endif %}{% endfor %}],
+                borderColor: '#007bff',
+                tension: 0.1
+            }]
+        };
+        new Chart(priceCtx, {
+            type: 'line',
+            data: priceData,
+            options: {
+                scales: {
+                    x: {
+                        type: 'time',
+                        time: {
+                            unit: 'day'
+                        },
+                        title: {
+                            display: true,
+                            text: 'Date'
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Price'
+                        }
+                    }
+                }
+            }
+        });
+        {% endif %}
+        
+        // Animation functions
+        function animateCircularProgress(targetScore) {
+            const circle = document.getElementById('score-circle');
+            const circumference = 2 * Math.PI * 84; // radius is ~84px
+            const offset = circumference - (targetScore / 100) * circumference;
+            
+            // Set initial state
+            circle.style.strokeDasharray = circumference;
+            circle.style.strokeDashoffset = circumference;
+            
+            // Dynamic color based on score - Lilac theme
+            let color = '#e74c3c'; // red
+            if (targetScore >= 30) color = '#f2994a'; // orange
+            if (targetScore >= 50) color = '#a66dd4'; // light lilac
+            if (targetScore >= 70) color = '#b57edc'; // medium lilac
+            if (targetScore >= 85) color = '#7a3db8'; // deep lilac
+            
+            circle.style.stroke = color;
+            
+            // Animate to target
+            setTimeout(() => {
+                circle.style.transition = 'stroke-dashoffset 2s ease-in-out';
+                circle.style.strokeDashoffset = offset;
+            }, 500);
+        }
+        
+        function animateScoreNumber(targetScore) {
+            const numberElement = document.getElementById('animated-score');
+            let current = 0;
+            const increment = targetScore / 100;
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= targetScore) {
+                    current = targetScore;
+                    clearInterval(timer);
+                }
+                numberElement.textContent = Math.round(current);
+            }, 20);
+        }
+        
+        function animateUsabilityCircle(targetScore) {
+            const circle = document.getElementById('usability-circle');
+            if (!circle) return;
+            
+            const circumference = 2 * Math.PI * 54; // radius is 54px
+            const offset = circumference - (targetScore / 100) * circumference;
+            
+            // Set initial state
+            circle.style.strokeDasharray = circumference;
+            circle.style.strokeDashoffset = circumference;
+            
+            // Dynamic color based on score - Lilac theme
+            let color = '#e74c3c'; // red
+            if (targetScore >= 35) color = '#f2994a'; // orange
+            if (targetScore >= 50) color = '#a66dd4'; // light lilac
+            if (targetScore >= 65) color = '#b57edc'; // medium lilac
+            if (targetScore >= 80) color = '#7a3db8'; // deep lilac
+            
+            circle.style.stroke = color;
+            
+            // Animate to target
+            setTimeout(() => {
+                circle.style.transition = 'stroke-dashoffset 2s ease-in-out';
+                circle.style.strokeDashoffset = offset;
+            }, 800);
+        }
+        
+        function animateProgressBars() {
+            const progressBars = document.querySelectorAll('.progress-bar-custom .fill');
+            progressBars.forEach((bar, index) => {
+                setTimeout(() => {
+                    bar.style.transform = 'scaleX(1)';
+                    bar.style.transformOrigin = 'left';
+                }, index * 200);
+            });
+        }
+        
+        // Add hover effects for cards
+        const cards = document.querySelectorAll('.pros-cons-card, .score-main-card');
+        cards.forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-8px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+        
+        // Enhanced tooltips for aspect scores
+        const aspectItems = document.querySelectorAll('.aspect-item');
+        aspectItems.forEach(item => {
+            item.addEventListener('mouseenter', function() {
+                const scoreValue = this.querySelector('.score-value').textContent;
+                const aspectName = this.querySelector('.aspect-name').textContent;
+                
+                // Create tooltip
+                const tooltip = document.createElement('div');
+                tooltip.className = 'custom-tooltip';
+                tooltip.innerHTML = `<strong>${aspectName}</strong><br>Sentiment Score: ${scoreValue}<br>Range: -1.0 (very negative) to +1.0 (very positive)`;
+                document.body.appendChild(tooltip);
+                
+                // Position tooltip
+                const rect = this.getBoundingClientRect();
+                tooltip.style.left = rect.right + 10 + 'px';
+                tooltip.style.top = rect.top + 'px';
+                
+                this._tooltip = tooltip;
+            });
+            
+            item.addEventListener('mouseleave', function() {
+                if (this._tooltip) {
+                    document.body.removeChild(this._tooltip);
+                    this._tooltip = null;
+                }
+            });
+        });
     });
 </script>
+
+<style>
+/* Additional CSS for new features */
+.custom-tooltip {
+    position: fixed;
+    background: rgba(0, 0, 0, 0.9);
+    color: white;
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    max-width: 250px;
+    z-index: 10000;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    pointer-events: none;
+    opacity: 0;
+    animation: fadeInTooltip 0.3s ease forwards;
+}
+
+@keyframes fadeInTooltip {
+    to { opacity: 1; }
+}
+
+/* Enhanced circular progress */
+.circular-progress {
+    position: relative;
+}
+
+.circular-progress svg {
+    transform: rotate(-90deg);
+    width: 100%;
+    height: 100%;
+}
+
+.circular-progress circle {
+    fill: none;
+    stroke-width: 12;
+    stroke-linecap: round;
+}
+
+.circle-bg {
+    stroke: #e2e8f0;
+}
+
+.circle-fill {
+    stroke-dasharray: 0;
+    stroke-dashoffset: 0;
+    transition: stroke-dashoffset 2s ease-in-out;
+}
+
+/* Enhanced progress bars */
+.progress-bar-custom .fill {
+    transform: scaleX(0);
+    transition: transform 1.5s ease-out;
+}
+
+/* Pulse effect for excellent scores */
+.score-badge.excellent {
+    animation: excellentPulse 2s infinite;
+}
+
+@keyframes excellentPulse {
+    0%, 100% { box-shadow: 0 4px 15px rgba(72, 187, 120, 0.3); }
+    50% { box-shadow: 0 4px 25px rgba(72, 187, 120, 0.6); }
+}
+
+/* Interactive score display */
+.score-display-container:hover .circular-progress {
+    transform: scale(1.05);
+    transition: transform 0.3s ease;
+}
+
+/* Glowing effect for high scores */
+.score-number {
+    transition: all 0.3s ease;
+}
+
+.circular-progress[data-score^="8"] .score-number,
+.circular-progress[data-score^="9"] .score-number {
+    text-shadow: 0 0 10px rgba(72, 187, 120, 0.5);
+}
+
+/* Description Analysis Styles */
+.description-analysis-card {
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    background: white;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: slideInUp 0.8s ease-out;
+    animation-delay: 0.6s;
+    animation-fill-mode: both;
+}
+
+.description-analysis-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+}
+
+.description-header {
+    background: var(--primary-gradient);
+    color: white;
+}
+
+/* Usability Circle */
+.usability-circle {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    margin: 0 auto;
+}
+
+.usability-circle svg {
+    transform: rotate(-90deg);
+    width: 100%;
+    height: 100%;
+}
+
+.usability-circle circle {
+    fill: none;
+    stroke-width: 8;
+    stroke-linecap: round;
+}
+
+.usability-bg {
+    stroke: #e2e8f0;
+}
+
+.usability-fill {
+    stroke-dasharray: 0;
+    stroke-dashoffset: 0;
+    transition: stroke-dashoffset 2s ease-in-out;
+}
+
+.usability-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.usability-number {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: #2d3748;
+    display: block;
+    line-height: 1;
+}
+
+.usability-suffix {
+    font-size: 0.9rem;
+    color: #718096;
+    font-weight: 600;
+}
+
+.usability-badge {
+    display: inline-block;
+    padding: 0.5rem 1.2rem;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.usability-badge.excellent {
+    background: linear-gradient(135deg, #b57edc, #7a3db8);
+    color: white;
+}
+
+.usability-badge.good {
+    background: linear-gradient(135deg, #a66dd4, #6a1b9a);
+    color: white;
+}
+
+.usability-badge.average {
+    background: linear-gradient(135deg, #edc0ff, #b57edc);
+    color: #3a2f45;
+}
+
+.usability-badge.poor {
+    background: linear-gradient(135deg, #f2994a, #dd6b20);
+    color: white;
+}
+
+.usability-badge.avoid {
+    background: linear-gradient(135deg, #e74c3c, #ad0000);
+    color: white;
+}
+
+.usability-summary {
+    font-size: 1rem;
+    color: #4a5568;
+    margin: 0;
+}
+
+/* Features List */
+.features-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.feature-item {
+    background: #f7fafc;
+    border-left: 4px solid #4299e1;
+    padding: 0.8rem 1rem;
+    margin-bottom: 0.5rem;
+    border-radius: 0 8px 8px 0;
+    transition: transform 0.2s ease;
+}
+
+.feature-item:hover {
+    transform: translateX(5px);
+    background: #edf2f7;
+}
+
+/* Description Lists */
+.desc-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.desc-item {
+    padding: 0.6rem 1rem;
+    margin-bottom: 0.5rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.desc-item.positive {
+    background: linear-gradient(135deg, #f4ecfb, #efe3fb);
+    border-left: 4px solid #b57edc;
+}
+
+.desc-item.negative {
+    background: linear-gradient(135deg, #fff2f2, #ffe1e1);
+    border-left: 4px solid #e74c3c;
+}
+
+.desc-pros-title, .desc-cons-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.desc-pros-title {
+    color: #7a3db8;
+}
+
+.desc-cons-title {
+    color: #e74c3c;
+}
+</style>
+
 {% endblock %}
