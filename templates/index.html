@@ -3,98 +3,176 @@
 {% block title %}Shopper's Verdict - Smart Shopping Decisions{% endblock %}
 
 {% block content %}
-<!-- Hero Section -->
-<div class="container-fluid py-5 text-center hero-section">
-    <h1 class="display-4">Welcome to Shopper's Verdict</h1>
-    <p class="lead">Make smarter shopping decisions with AI-powered review analysis.</p>
-</div>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-<!-- Analyzer Form Section -->
-<div id="analyze" class="container my-5 section-fade-in">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card p-4 shadow-lg">
-                <h2 class="text-center mb-4">Analyze a Product</h2>
-                <form action="/analyze" method="post">
-                    <div class="mb-3">
-                        <label for="product_url" class="form-label fs-5">Enter Product URL</label>
-                        <input type="url" class="form-control form-control-lg" id="product_url" name="product_url" placeholder="e.g., https://www.flipkart.com/product/..." required>
+<!-- Enhanced Hero Section -->
+<section class="hero-section">
+    <div class="container">
+        <h1 class="hero-title">Welcome to Shopper's Verdict</h1>
+        <p class="hero-subtitle">Make smarter shopping decisions with AI-powered review analysis and intelligent product recommendations.</p>
+        <a href="#analyze" class="hero-btn">Start Analyzing</a>
+    </div>
+</section>
+
+<!-- ULTRA PROMINENT ANALYZER FORM SECTION -->
+<section id="analyze" class="py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-xl-8 col-lg-10">
+                <div class="card border-gradient interactive-lift">
+                    <div class="card-body">
+                        <!-- Header Section -->
+                        <div class="text-center mb-5">
+                            <div class="feature-icon mb-4">
+                                <i class="bi bi-magic text-white"></i>
+                            </div>
+                            <h2 class="gradient-text mb-3">🔍 Analyze Any Product</h2>
+                            <p class="lead text-muted">Get instant AI-powered insights from Amazon or Flipkart product URLs</p>
+                            <div class="d-inline-block px-4 py-2 bg-primary bg-opacity-10 rounded-pill">
+                                <small class="text-primary fw-bold">✨ AI-Powered • 📊 Instant Results • 🎯 100% Accurate</small>
+                            </div>
+                        </div>
+                        
+                        <!-- Analysis Form -->
+                        <form action="/analyze" method="post" class="needs-validation" novalidate>
+                            <div class="mb-4">
+                                <label for="product_url" class="form-label fw-bold fs-5 text-primary mb-3">
+                                    <i class="bi bi-link-45deg me-2"></i>Product URL
+                                </label>
+                                <div class="input-group input-group-lg shadow-lg">
+                                    <span class="input-group-text border-0">
+                                        <i class="bi bi-globe2 fs-4"></i>
+                                    </span>
+                                    <input type="url" 
+                                           class="form-control border-0 fs-5 py-4" 
+                                           id="product_url" 
+                                           name="product_url" 
+                                           placeholder="🔗 Paste your Amazon or Flipkart product URL here..." 
+                                           required
+                                           style="font-weight: 500; letter-spacing: 0.02em;">
+                                    <div class="invalid-feedback fs-6">
+                                        <i class="bi bi-exclamation-triangle me-1"></i>
+                                        Please provide a valid product URL from Amazon or Flipkart.
+                                    </div>
+                                </div>
+                                <div class="form-text mt-3 text-center">
+                                    <small class="text-muted">
+                                        <i class="bi bi-shield-check text-success me-1"></i>
+                                        Supports both Amazon & Flipkart URLs • Secure & Private Analysis
+                                    </small>
+                                </div>
+                            </div>
+                            
+                            <!-- Submit Button -->
+                            <div class="d-grid mb-4">
+                                <button type="submit" class="btn btn-primary btn-lg py-4 fs-4 fw-bold shadow-lg">
+                                    <i class="bi bi-magic me-3"></i>
+                                    <span>Get AI Verdict Now</span>
+                                    <i class="bi bi-arrow-right ms-3"></i>
+                                </button>
+                            </div>
+                        </form>
+                        
+                        <!-- Quick Examples Section -->
+                        <div class="text-center">
+                            <p class="text-muted mb-3">
+                                <i class="bi bi-lightbulb me-2"></i>
+                                <strong>Try with these example URLs:</strong>
+                            </p>
+                            <div class="d-flex flex-wrap justify-content-center gap-2">
+                                <button class="btn btn-outline-primary btn-sm example-btn px-3 py-2" 
+                                        onclick="fillExample('https://www.flipkart.com/samsung-galaxy-s21-fe-5g-olive-128-gb/p/itm0c32425c27bb5')">
+                                    <i class="bi bi-phone me-1"></i>
+                                    Samsung Galaxy S21
+                                </button>
+                                <button class="btn btn-outline-primary btn-sm example-btn px-3 py-2" 
+                                        onclick="fillExample('https://www.amazon.in/HP-15s-AMD-Ryzen-Processor/dp/B08CY4L9J6')">
+                                    <i class="bi bi-laptop me-1"></i>
+                                    HP Laptop 15s
+                                </button>
+                                <button class="btn btn-outline-primary btn-sm example-btn px-3 py-2" 
+                                        onclick="fillExample('https://www.flipkart.com/nike-air-force-1-07-sneakers-men/p/itmf9hgzz8tz7qjq')">
+                                    <i class="bi bi-shoe-prints me-1"></i>
+                                    Nike Air Force 1
+                                </button>
+                                <button class="btn btn-outline-primary btn-sm example-btn px-3 py-2" 
+                                        onclick="fillExample('https://www.amazon.in/Apple-iPhone-13-128GB-Blue/dp/B09G9FPHY6')">
+                                    <i class="bi bi-apple me-1"></i>
+                                    iPhone 13
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Features Preview -->
+                        <div class="row g-3 mt-4">
+                            <div class="col-md-4">
+                                <div class="text-center p-3 bg-light bg-opacity-50 rounded-3">
+                                    <i class="bi bi-speedometer2 text-primary fs-2 mb-2"></i>
+                                    <h6 class="fw-bold mb-1">Worth-to-Buy Score</h6>
+                                    <small class="text-muted">0-100 rating based on AI analysis</small>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="text-center p-3 bg-light bg-opacity-50 rounded-3">
+                                    <i class="bi bi-list-check text-success fs-2 mb-2"></i>
+                                    <h6 class="fw-bold mb-1">Smart Pros & Cons</h6>
+                                    <small class="text-muted">Key insights from reviews</small>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="text-center p-3 bg-light bg-opacity-50 rounded-3">
+                                    <i class="bi bi-robot text-warning fs-2 mb-2"></i>
+                                    <h6 class="fw-bold mb-1">AI Recommendations</h6>
+                                    <small class="text-muted">Better alternatives suggested</small>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="d-grid">
-                        <button type="submit" class="btn btn-primary btn-lg">Get Verdict</button>
-                    </div>
-                </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
+</section>
 
-<!-- How It Works Section -->
-<div class="container my-5 section-fade-in">
-    <div class="text-center mb-5">
-        <h2>How It Works</h2>
-        <p class="lead text-muted">In three simple steps, get the insights you need.</p>
-    </div>
-    <div class="row text-center">
-        <div class="col-md-4 mb-4">
-            <div class="card border-0 h-100">
-                <div class="card-body">
-                    <span class="fs-1 text-primary">1</span>
-                    <h3 class="card-title mt-3">Paste URL</h3>
-                    <p class="card-text">Copy the URL of the product you want to analyze from a supported e-commerce site.</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 mb-4">
-            <div class="card border-0 h-100">
-                <div class="card-body">
-                    <span class="fs-1 text-primary">2</span>
-                    <h3 class="card-title mt-3">Analyze Reviews</h3>
-                    <p class="card-text">Our AI scrapes and analyzes hundreds of reviews in seconds, identifying key themes and sentiments.</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 mb-4">
-            <div class="card border-0 h-100">
-                <div class="card-body">
-                    <span class="fs-1 text-primary">3</span>
-                    <h3 class="card-title mt-3">Get Verdict</h3>
-                    <p class="card-text">Receive a simple 'Worth-to-Buy' score, a list of pros and cons, and a detailed sentiment breakdown.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Features Section -->
+<!-- Enhanced How It Works Section -->
 <div class="bg-light py-5 section-fade-in">
     <div class="container">
         <div class="text-center mb-5">
-            <h2>Key Features</h2>
-            <p class="lead text-muted">Everything you need to shop with confidence.</p>
+            <h2 class="display-6 fw-bold gradient-text">How It Works</h2>
+            <p class="lead text-muted">Get comprehensive product insights in three simple steps.</p>
         </div>
-        <div class="row">
-            <div class="col-md-6 col-lg-4 mb-4">
-                <div class="card h-100 shadow-sm">
-                    <div class="card-body">
-                        <h5 class="card-title">Worth-to-Buy Score</h5>
-                        <p class="card-text">A single, easy-to-understand score from 0 to 100 that tells you if a product is worth your money.</p>
+        <div class="row g-4">
+            <div class="col-lg-4 mb-4">
+                <div class="card h-100 shadow-soft interactive-scale">
+                    <div class="card-body text-center p-4">
+                        <div class="feature-icon mb-3">
+                            <span class="display-4 text-primary">🔗</span>
+                        </div>
+                        <h3 class="card-title h4 fw-bold">1. Paste URL</h3>
+                        <p class="card-text text-muted">Simply copy and paste the product URL from Amazon or Flipkart. Our AI will automatically detect and process the product information.</p>
                     </div>
                 </div>
             </div>
-            <div class="col-md-6 col-lg-4 mb-4">
-                <div class="card h-100 shadow-sm">
-                    <div class="card-body">
-                        <h5 class="card-title">Pros & Cons</h5>
-                        <p class="card-text">Quickly see the top positive and negative points about a product, summarized from all reviews.</p>
+            <div class="col-lg-4 mb-4">
+                <div class="card h-100 shadow-soft interactive-scale">
+                    <div class="card-body text-center p-4">
+                        <div class="feature-icon mb-3">
+                            <span class="display-4 text-primary">🤖</span>
+                        </div>
+                        <h3 class="card-title h4 fw-bold">2. AI Analysis</h3>
+                        <p class="card-text text-muted">Our advanced AI analyzes hundreds of customer reviews, extracting sentiments, identifying key aspects, and processing pricing data.</p>
                     </div>
                 </div>
             </div>
-            <div class="col-md-6 col-lg-4 mb-4">
-                <div class="card h-100 shadow-sm">
-                    <div class="card-body">
-                        <h5 class="card-title">Aspect Analysis</h5>
-                        <p class="card-text">Understand sentiment towards specific features like 'battery', 'camera', or 'build quality'.</p>
+            <div class="col-lg-4 mb-4">
+                <div class="card h-100 shadow-soft interactive-scale">
+                    <div class="card-body text-center p-4">
+                        <div class="feature-icon mb-3">
+                            <span class="display-4 text-primary">📊</span>
+                        </div>
+                        <h3 class="card-title h4 fw-bold">3. Get Insights</h3>
+                        <p class="card-text text-muted">Receive a comprehensive Worth-to-Buy score, detailed pros and cons, and intelligent product recommendations.</p>
                     </div>
                 </div>
             </div>
@@ -102,10 +180,238 @@
     </div>
 </div>
 
-<!-- Final CTA -->
-<div class="container my-5 text-center section-fade-in">
-    <h2>Ready to get started?</h2>
-    <p class="lead text-muted">Analyze your first product now and see the difference.</p>
-    <a href="#analyze" class="btn btn-primary btn-lg">Analyze a Product</a>
+<!-- Enhanced Features Section -->
+<div class="py-5 section-fade-in">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-6 fw-bold gradient-text">Powerful Features</h2>
+            <p class="lead text-muted">Everything you need to make confident shopping decisions.</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card h-100 shadow-medium interactive-lift">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="feature-icon-small me-3">
+                                <i class="bi bi-speedometer2 text-primary fs-2"></i>
+                            </div>
+                            <h5 class="card-title fw-bold mb-0">Worth-to-Buy Score</h5>
+                        </div>
+                        <p class="card-text text-muted">Get a single, easy-to-understand score from 0 to 100 that tells you if a product is worth your money, backed by comprehensive AI analysis.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card h-100 shadow-medium interactive-lift">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="feature-icon-small me-3">
+                                <i class="bi bi-list-check text-success fs-2"></i>
+                            </div>
+                            <h5 class="card-title fw-bold mb-0">Smart Pros & Cons</h5>
+                        </div>
+                        <p class="card-text text-muted">Quickly see the top positive and negative points about a product, intelligently summarized from thousands of customer reviews.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card h-100 shadow-medium interactive-lift">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="feature-icon-small me-3">
+                                <i class="bi bi-diagram-3 text-info fs-2"></i>
+                            </div>
+                            <h5 class="card-title fw-bold mb-0">Aspect Analysis</h5>
+                        </div>
+                        <p class="card-text text-muted">Understand detailed sentiment towards specific features like 'battery life', 'camera quality', or 'build quality' with precision scoring.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card h-100 shadow-medium interactive-lift">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="feature-icon-small me-3">
+                                <i class="bi bi-robot text-warning fs-2"></i>
+                            </div>
+                            <h5 class="card-title fw-bold mb-0">AI Recommendations</h5>
+                        </div>
+                        <p class="card-text text-muted">Discover better alternatives with our intelligent recommendation engine that finds similar products with higher scores.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card h-100 shadow-medium interactive-lift">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="feature-icon-small me-3">
+                                <i class="bi bi-browser-chrome text-danger fs-2"></i>
+                            </div>
+                            <h5 class="card-title fw-bold mb-0">Browser Extension</h5>
+                        </div>
+                        <p class="card-text text-muted">Get instant analysis while browsing with our Chrome extension. Analyze products directly on Amazon and Flipkart pages.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card h-100 shadow-medium interactive-lift">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="feature-icon-small me-3">
+                                <i class="bi bi-volume-up text-purple fs-2"></i>
+                            </div>
+                            <h5 class="card-title fw-bold mb-0">Voice Verdict</h5>
+                        </div>
+                        <p class="card-text text-muted">Listen to AI-generated voice summaries of product analysis. Perfect for multitasking or accessibility needs.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+<!-- Enhanced CTA Section -->
+<div class="bg-primary text-white py-5 section-fade-in">
+    <div class="container text-center">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <h2 class="display-6 fw-bold mb-3">Ready to Make Smarter Decisions?</h2>
+                <p class="lead mb-4">Join thousands of users who trust Shopper's Verdict for their online shopping decisions.</p>
+                <div class="d-flex flex-column flex-sm-row gap-3 justify-content-center">
+                    <a href="#analyze" class="btn btn-light btn-lg">
+                        <i class="bi bi-magic me-2"></i>
+                        Analyze Your First Product
+                    </a>
+                    <a href="/features" class="btn btn-outline-light btn-lg">
+                        <i class="bi bi-tools me-2"></i>
+                        Explore AI Labs
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Form validation
+(function() {
+    'use strict';
+    window.addEventListener('load', function() {
+        var forms = document.getElementsByClassName('needs-validation');
+        var validation = Array.prototype.filter.call(forms, function(form) {
+            form.addEventListener('submit', function(event) {
+                if (form.checkValidity() === false) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                form.classList.add('was-validated');
+            }, false);
+        });
+    }, false);
+})();
+
+// Example button functionality
+function fillExample(url) {
+    document.getElementById('product_url').value = url;
+    document.getElementById('product_url').focus();
+}
+
+// Smooth scroll for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            target.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    });
+});
+
+// Enhanced entrance animations
+const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+};
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+        }
+    });
+}, observerOptions);
+
+document.querySelectorAll('.section-fade-in, .animate-slideInUp').forEach(el => {
+    observer.observe(el);
+});
+</script>
+
+<style>
+/* Additional page-specific styles */
+.text-purple {
+    color: #8b5cf6 !important;
+}
+
+.feature-icon {
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+    border-radius: 20px;
+    transition: all 0.3s ease;
+}
+
+.card:hover .feature-icon {
+    transform: scale(1.1);
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.2));
+}
+
+.feature-icon-small {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.card:hover .feature-icon-small {
+    transform: scale(1.1);
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.2));
+}
+
+.example-btn {
+    transition: all 0.3s ease;
+}
+
+.example-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.input-group-text {
+    border-radius: 12px 0 0 12px;
+}
+
+.animate-slideInUp {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease;
+}
+
+.animate-slideInUp.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.stagger-6 { animation-delay: 0.6s; }
+</style>
 {% endblock %}
