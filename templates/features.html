@@ -1,18 +1,50 @@
 {% extends 'base.html' %}
 
+<<<<<<< HEAD
 {% block title %}AI Shopping Labs - Features{% endblock %}
+=======
+{% block title %}AI Shopping Labs - Advanced Features{% endblock %}
+>>>>>>> e9414c5600577b26d2ed2f3aaecc1bee4790b887
 
 {% block content %}
 <section class="labs-hero text-center py-5">
   <div class="container">
+<<<<<<< HEAD
     <h1 class="display-5 fw-bold text-white">AI Shopping Labs</h1>
     <p class="lead text-white-50 mb-0">Experiment with advanced tools that power Shopper's Verdict.</p>
+=======
+    <h1 class="display-4 fw-bold text-white animate__animated animate__fadeInDown">🔬 AI Shopping Labs</h1>
+    <p class="lead text-white-75 mb-4 animate__animated animate__fadeInUp animate__delay-1s">Experiment with powerful AI tools that drive intelligent shopping decisions.</p>
+    <div class="hero-stats animate__animated animate__fadeInUp animate__delay-2s">
+      <div class="row justify-content-center">
+        <div class="col-md-2 col-4">
+          <div class="stat-card">
+            <div class="stat-number" id="totalAnalyses">0</div>
+            <div class="stat-label">Analyses</div>
+          </div>
+        </div>
+        <div class="col-md-2 col-4">
+          <div class="stat-card">
+            <div class="stat-number">3</div>
+            <div class="stat-label">AI Tools</div>
+          </div>
+        </div>
+        <div class="col-md-2 col-4">
+          <div class="stat-card">
+            <div class="stat-number" id="avgAccuracy">87%</div>
+            <div class="stat-label">Accuracy</div>
+          </div>
+        </div>
+      </div>
+    </div>
+>>>>>>> e9414c5600577b26d2ed2f3aaecc1bee4790b887
   </div>
 </section>
 
 <div class="container py-5">
   <div class="row g-4">
     <!-- Card 1: Aspect Explorer -->
+<<<<<<< HEAD
     <div class="col-lg-4">
       <a class="glass-card h-100 text-decoration-none text-reset feature-link" href="/features?open=aspects">
         <div class="card-inner">
@@ -55,6 +87,83 @@
           </div>
         </div>
       </a>
+=======
+    <div class="col-lg-4 mb-4">
+      <div class="feature-card glass-card h-100" data-feature="aspects">
+        <div class="card-inner">
+          <div class="feature-icon">
+            <i class="bi bi-compass"></i>
+          </div>
+          <h5 class="feature-title">🔍 Aspect Explorer</h5>
+          <p class="feature-description">Deep-dive into customer sentiment by product aspects. Identify what customers love and hate with AI-powered aspect extraction.</p>
+          <div class="feature-stats">
+            <div class="stat-item">
+              <span class="stat-label">Accuracy:</span>
+              <span class="stat-value">91%</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Speed:</span>
+              <span class="stat-value">~2s</span>
+            </div>
+          </div>
+          <button class="btn btn-lilac-gradient btn-sm w-100 mt-3">
+            <i class="bi bi-play-fill me-2"></i>Launch Explorer
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 2: Price Intelligence Hub -->
+    <div class="col-lg-4 mb-4">
+      <div class="feature-card glass-card h-100" data-feature="price">
+        <div class="card-inner">
+          <div class="feature-icon">
+            <i class="bi bi-graph-up-arrow"></i>
+          </div>
+          <h5 class="feature-title">📈 Price Intelligence Hub</h5>
+          <p class="feature-description">Advanced price tracking with trend analysis, volatility metrics, and smart alerts. Make data-driven purchase timing decisions.</p>
+          <div class="feature-stats">
+            <div class="stat-item">
+              <span class="stat-label">Metrics:</span>
+              <span class="stat-value">8+</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">History:</span>
+              <span class="stat-value">Unlimited</span>
+            </div>
+          </div>
+          <button class="btn btn-lilac-gradient btn-sm w-100 mt-3">
+            <i class="bi bi-bar-chart-line me-2"></i>Analyze Prices
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 3: Smart Verdict Composer -->
+    <div class="col-lg-4 mb-4">
+      <div class="feature-card glass-card h-100" data-feature="verdict">
+        <div class="card-inner">
+          <div class="feature-icon">
+            <i class="bi bi-magic"></i>
+          </div>
+          <h5 class="feature-title">🎯 Smart Verdict Composer</h5>
+          <p class="feature-description">Customize AI decision-making with adjustable weights, thresholds, and personalized recommendation algorithms.</p>
+          <div class="feature-stats">
+            <div class="stat-item">
+              <span class="stat-label">Customization:</span>
+              <span class="stat-value">High</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Voice Output:</span>
+              <span class="stat-value">Yes</span>
+            </div>
+          </div>
+          <button class="btn btn-lilac-gradient btn-sm w-100 mt-3">
+            <i class="bi bi-sliders me-2"></i>Compose Verdict
+          </button>
+        </div>
+      </div>
+>>>>>>> e9414c5600577b26d2ed2f3aaecc1bee4790b887
     </div>
   </div>
 
@@ -203,6 +312,7 @@
   </div>
 </div>
 
+<<<<<<< HEAD
 <style>
 /* Enhanced Features Page Styling */
 .labs-hero { 
@@ -574,11 +684,313 @@ html {
         opacity: 1;
         transform: translateY(0);
     }
+=======
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+
+<style>
+:root {
+  /* Lilac Theme Variables */
+  --primary-lilac: #b57edc;
+  --primary-lilac-dark: #7a3db8;
+  --primary-lilac-light: #d6b4fc;
+  --lilac-gradient: linear-gradient(135deg, #b57edc 0%, #7a3db8 100%);
+  --lilac-gradient-alt: linear-gradient(135deg, #a66dd4, #6a1b9a);
+  --text-lilac: #6a1b9a;
+  --bg-lilac-light: rgba(181, 126, 220, 0.1);
+  --shadow-lilac: rgba(106, 27, 154, 0.2);
+}
+
+/* Enhanced Hero */
+.labs-hero { 
+  background: radial-gradient(1200px 600px at 50% -20%, rgba(181,126,220,0.3), transparent), 
+             linear-gradient(135deg, #2d1b4e, #1a0d2e); 
+  position: relative;
+  overflow: hidden;
+}
+
+.labs-hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="%23ffffff" opacity="0.05"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+  opacity: 0.3;
+}
+
+.text-white-75 { color: rgba(255, 255, 255, 0.85) !important; }
+
+/* Hero Stats */
+.hero-stats {
+  margin-top: 2rem;
+}
+
+.stat-card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  padding: 1rem 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px);
+}
+
+.stat-number {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--primary-lilac-light);
+  display: block;
+  line-height: 1;
+}
+
+.stat-label {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin-top: 0.25rem;
+}
+
+/* Enhanced Glass Cards */
+.glass-card { 
+  position: relative; 
+  border-radius: 20px; 
+  background: linear-gradient(135deg, rgba(255,255,255,0.15), rgba(255,255,255,0.08)); 
+  backdrop-filter: blur(15px); 
+  border: 1px solid rgba(255,255,255,0.2); 
+  box-shadow: 0 15px 35px var(--shadow-lilac); 
+  overflow: hidden; 
+  transition: transform 0.4s ease, box-shadow 0.4s ease; 
+  cursor: pointer;
+}
+
+.glass-card:hover { 
+  transform: translateY(-8px) scale(1.02); 
+  box-shadow: 0 25px 50px rgba(106, 27, 154, 0.3); 
+}
+
+.glass-card .card-inner { 
+  padding: 2rem 1.5rem; 
+  position: relative;
+  z-index: 2;
+}
+
+/* Feature Card Enhancements */
+.feature-icon {
+  width: 60px;
+  height: 60px;
+  background: var(--lilac-gradient);
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+  box-shadow: 0 8px 20px rgba(106, 27, 154, 0.3);
+}
+
+.feature-icon i {
+  font-size: 1.5rem;
+  color: white;
+}
+
+.feature-title {
+  color: var(--text-lilac);
+  font-weight: 700;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.feature-description {
+  color: #555;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin-bottom: 1.5rem;
+}
+
+.feature-stats {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.stat-item {
+  text-align: center;
+  flex: 1;
+}
+
+.stat-label {
+  font-size: 0.7rem;
+  color: #888;
+  display: block;
+}
+
+.stat-value {
+  font-weight: 700;
+  color: var(--primary-lilac-dark);
+  font-size: 0.9rem;
+  display: block;
+  margin-top: 0.2rem;
+}
+
+/* Lilac Gradient Button */
+.btn-lilac-gradient {
+  background: var(--lilac-gradient);
+  border: none;
+  color: white;
+  font-weight: 600;
+  border-radius: 25px;
+  padding: 0.6rem 1.2rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(106, 27, 154, 0.3);
+}
+
+.btn-lilac-gradient:hover {
+  background: var(--lilac-gradient-alt);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(106, 27, 154, 0.4);
+  color: white;
+}
+
+/* Enhanced Panels */
+.card {
+  border: none;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(106, 27, 154, 0.15);
+  overflow: hidden;
+}
+
+.card-header {
+  background: var(--lilac-gradient);
+  color: white;
+  font-weight: 700;
+  font-size: 1.1rem;
+  padding: 1rem 1.5rem;
+  border: none;
+}
+
+.card-body {
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.95);
+}
+
+/* Enhanced Metrics */
+.metric { 
+  background: var(--bg-lilac-light); 
+  border: 1px solid rgba(181, 126, 220, 0.2); 
+  border-radius: 12px; 
+  padding: 0.75rem 1rem;
+  transition: all 0.3s ease;
+}
+
+.metric:hover {
+  background: rgba(181, 126, 220, 0.15);
+  transform: translateY(-1px);
+}
+
+.metric-label { 
+  font-size: 0.75rem; 
+  color: var(--text-lilac); 
+  font-weight: 600;
+}
+
+.metric-value { 
+  font-weight: 800; 
+  color: var(--primary-lilac-dark);
+  font-size: 1.1rem;
+}
+
+/* Enhanced Aspect Chips */
+.aspect-chip { 
+  border-radius: 25px; 
+  padding: 0.5rem 1rem; 
+  color: #fff; 
+  font-weight: 600; 
+  cursor: pointer; 
+  user-select: none; 
+  transition: all 0.3s ease;
+  margin: 0.25rem;
+  display: inline-block;
+  border: 2px solid transparent;
+}
+
+.aspect-chip:hover { 
+  transform: translateY(-2px) scale(1.05); 
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Form Enhancements */
+.form-control {
+  border-radius: 10px;
+  border: 2px solid rgba(181, 126, 220, 0.2);
+  padding: 0.75rem 1rem;
+  transition: all 0.3s ease;
+}
+
+.form-control:focus {
+  border-color: var(--primary-lilac);
+  box-shadow: 0 0 0 0.2rem rgba(181, 126, 220, 0.25);
+}
+
+.btn-primary {
+  background: var(--lilac-gradient);
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+}
+
+.btn-primary:hover {
+  background: var(--lilac-gradient-alt);
+  transform: translateY(-1px);
+}
+
+/* Loading States */
+.loading {
+  position: relative;
+  overflow: hidden;
+}
+
+.loading::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(181, 126, 220, 0.4), transparent);
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .hero-stats .col-4 {
+    margin-bottom: 1rem;
+  }
+  
+  .feature-stats {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .stat-item {
+    text-align: left;
+  }
+>>>>>>> e9414c5600577b26d2ed2f3aaecc1bee4790b887
 }
 </style>
 
 <script>
 (() => {
+<<<<<<< HEAD
   // Utility: show exactly one panel, scroll to it
   function showPanel(key) {
     const id = key === 'aspects' ? '#panel-aspects' : key === 'price' ? '#panel-price' : key === 'verdict' ? '#panel-verdict' : null;
@@ -587,12 +999,120 @@ html {
     const panel = document.querySelector(id);
     panel.classList.remove('d-none');
     setTimeout(() => panel.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
+=======
+  // Initialize page with animations and interactions
+  document.addEventListener('DOMContentLoaded', () => {
+    initializeStats();
+    setupFeatureCardListeners();
+    addLoadingStates();
+  });
+
+  // Initialize animated statistics
+  function initializeStats() {
+    const totalAnalysesEl = document.getElementById('totalAnalyses');
+    if (totalAnalysesEl) {
+      animateNumber(totalAnalysesEl, 0, 1247, 2000);
+    }
+  }
+
+  // Animate number counter
+  function animateNumber(element, start, end, duration) {
+    const startTime = performance.now();
+    const range = end - start;
+    
+    function updateNumber(currentTime) {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const current = Math.floor(start + (range * easeOutQuart(progress)));
+      
+      element.textContent = current.toLocaleString();
+      
+      if (progress < 1) {
+        requestAnimationFrame(updateNumber);
+      }
+    }
+    
+    requestAnimationFrame(updateNumber);
+  }
+
+  // Easing function for smooth animation
+  function easeOutQuart(t) {
+    return 1 - (--t) * t * t * t;
+  }
+
+  // Setup click listeners for feature cards
+  function setupFeatureCardListeners() {
+    document.querySelectorAll('.feature-card[data-feature]').forEach(card => {
+      const button = card.querySelector('.btn-lilac-gradient');
+      const feature = card.getAttribute('data-feature');
+      
+      const clickHandler = (e) => {
+        e.preventDefault();
+        showPanel(feature);
+        
+        // Add click animation
+        card.style.transform = 'scale(0.95)';
+        setTimeout(() => {
+          card.style.transform = '';
+        }, 150);
+      };
+      
+      card.addEventListener('click', clickHandler);
+      button?.addEventListener('click', clickHandler);
+    });
+  }
+
+  // Add loading state helpers
+  function addLoadingStates() {
+    window.setLoadingState = function(element, isLoading) {
+      if (isLoading) {
+        element.classList.add('loading');
+        element.style.pointerEvents = 'none';
+      } else {
+        element.classList.remove('loading');
+        element.style.pointerEvents = '';
+      }
+    };
+  }
+
+  // Utility: show exactly one panel, scroll to it with enhanced animation
+  function showPanel(key) {
+    const id = key === 'aspects' ? '#panel-aspects' : key === 'price' ? '#panel-price' : key === 'verdict' ? '#panel-verdict' : null;
+    if (!id) return;
+    
+    // Hide all panels with fade out
+    document.querySelectorAll('#panel-aspects, #panel-price, #panel-verdict').forEach(el => {
+      if (!el.classList.contains('d-none')) {
+        el.style.opacity = '0';
+        setTimeout(() => el.classList.add('d-none'), 150);
+      }
+    });
+    
+    // Show selected panel with fade in
+    setTimeout(() => {
+      const panel = document.querySelector(id);
+      panel.classList.remove('d-none');
+      panel.style.opacity = '0';
+      
+      setTimeout(() => {
+        panel.style.opacity = '1';
+        panel.style.transition = 'opacity 0.3s ease';
+        panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 50);
+    }, 200);
+>>>>>>> e9414c5600577b26d2ed2f3aaecc1bee4790b887
   }
 
   // Open requested panel based on URL param
   const params = new URLSearchParams(window.location.search);
   const open = params.get('open');
+<<<<<<< HEAD
   if (open) showPanel(open);
+=======
+  if (open) {
+    setTimeout(() => showPanel(open), 500); // Delay for page load
+  }
+>>>>>>> e9414c5600577b26d2ed2f3aaecc1bee4790b887
 
   // Shared state
   let lastScrape = null; // { sample_reviews, price_history, reviews_count }
@@ -629,6 +1149,7 @@ html {
   const aspectsBody = document.getElementById('aspectsBody');
 
   btnFetchAspects?.addEventListener('click', async () => {
+<<<<<<< HEAD
     statusAspects.innerHTML = '<div class="alert alert-info">Fetching and analyzing...</div>';
     aspectChips.innerHTML = '';
     aspectSentences.innerHTML = '';
@@ -662,6 +1183,79 @@ html {
       statusAspects.innerHTML = `<div class="alert alert-success">Analyzed ${preview.reviews_count} reviews (sampled ${preview.sample_reviews.length}). Click a chip to see sentences.</div>`;
     } catch (e) {
       statusAspects.innerHTML = `<div class=\"alert alert-danger\">${e.message || 'Unexpected error'}</div>`;
+=======
+    // Enhanced loading state
+    setLoadingState(btnFetchAspects, true);
+    statusAspects.innerHTML = '<div class="alert alert-info"><i class="bi bi-hourglass-split me-2"></i>Fetching and analyzing reviews...</div>';
+    aspectChips.innerHTML = '';
+    aspectSentences.innerHTML = '';
+    aspectsBody.classList.add('d-none');
+    
+    try {
+      const url = urlAspects.value.trim();
+      if (!url) throw new Error('Please enter a valid product URL');
+      
+      // Validate URL format
+      if (!url.match(/^https?:\/\/(www\.)?(flipkart|amazon)\.(com|in)\//)) {
+        throw new Error('Please enter a valid Flipkart or Amazon URL');
+      }
+      
+      statusAspects.innerHTML = '<div class="alert alert-info"><i class="bi bi-download me-2"></i>Scraping product reviews...</div>';
+      const preview = await fetchPreview(url);
+      
+      if (!preview.sample_reviews || preview.sample_reviews.length === 0) {
+        throw new Error('No reviews found for this product. It may be too new or have no reviews yet.');
+      }
+      
+      statusAspects.innerHTML = '<div class="alert alert-info"><i class="bi bi-cpu me-2"></i>Analyzing sentiment and extracting aspects...</div>';
+      const analysis = await analyzeTexts(preview.sample_reviews);
+      const aspects = analysis.aspect_sentiments || {};
+      const sorted = Object.entries(aspects).sort((a,b) => Math.abs(b[1]) - Math.abs(a[1]));
+      
+      if (sorted.length === 0) {
+        statusAspects.innerHTML = '<div class="alert alert-warning"><i class="bi bi-exclamation-triangle me-2"></i>No distinct aspects identified from the reviews. The text may be too short or generic.</div>';
+        return;
+      }
+      
+      // Build enhanced chips with tooltips
+      sorted.forEach(([aspect, score], index) => {
+        const chip = document.createElement('span');
+        chip.className = 'aspect-chip';
+        chip.style.background = colorForSent(score);
+        chip.innerHTML = `<strong>${aspect}</strong> <small>(${score > 0 ? '+' : ''}${score.toFixed(2)})</small>`;
+        chip.title = `Sentiment score: ${score.toFixed(2)} (${score > 0.3 ? 'Very Positive' : score > 0.1 ? 'Positive' : score > -0.1 ? 'Neutral' : score > -0.3 ? 'Negative' : 'Very Negative'})`;
+        
+        chip.addEventListener('click', () => {
+          // Remove active state from other chips
+          document.querySelectorAll('.aspect-chip').forEach(c => c.style.border = '2px solid transparent');
+          chip.style.border = '2px solid rgba(255, 255, 255, 0.8)';
+          
+          const sents = (preview.sample_reviews || []).flatMap(toSentences);
+          const lower = aspect.toLowerCase();
+          const matches = sents.filter(s => s.toLowerCase().includes(lower)).slice(0, 8);
+          
+          aspectSentences.innerHTML = matches.length > 0 
+            ? `<div class="mb-2"><strong>Supporting sentences for "${aspect}":</strong></div>` + 
+              matches.map(s => `<li class="list-group-item">${s}</li>`).join('')
+            : '<li class="list-group-item text-muted"><i class="bi bi-info-circle me-2"></i>No supporting sentences found for this aspect.</li>';
+        });
+        
+        aspectChips.appendChild(chip);
+        
+        // Auto-select first (strongest) aspect
+        if (index === 0) {
+          setTimeout(() => chip.click(), 300);
+        }
+      });
+      
+      aspectsBody.classList.remove('d-none');
+      statusAspects.innerHTML = `<div class="alert alert-success"><i class="bi bi-check-circle me-2"></i>Successfully analyzed <strong>${preview.reviews_count}</strong> reviews (sampled ${preview.sample_reviews.length}). Found <strong>${sorted.length}</strong> key aspects. Click any chip to see supporting sentences.</div>`;
+      
+    } catch (e) {
+      statusAspects.innerHTML = `<div class="alert alert-danger"><i class="bi bi-exclamation-circle me-2"></i><strong>Analysis Failed:</strong> ${e.message || 'An unexpected error occurred. Please try again.'}</div>`;
+    } finally {
+      setLoadingState(btnFetchAspects, false);
+>>>>>>> e9414c5600577b26d2ed2f3aaecc1bee4790b887
     }
   });
 

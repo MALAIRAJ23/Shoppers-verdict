@@ -298,6 +298,7 @@
     </div>
     {% endif %}
 
+<<<<<<< HEAD
     <!-- Smart Recommendations Section -->
     {% if recommendations and recommendations|length > 0 %}
     <div class="row mb-5">
@@ -372,6 +373,8 @@
     </div>
     {% endif %}
 
+=======
+>>>>>>> e9414c5600577b26d2ed2f3aaecc1bee4790b887
     {% if insight %}
     <div class="alert alert-info shadow-sm">{{ insight }}</div>
     {% endif %}
@@ -455,9 +458,31 @@
 </div>
 
 <style>
+<<<<<<< HEAD
 /* Enhanced Results Page Styling */
 .results-header {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+=======
+/* Enhanced Results Page Styling - Lilac Theme */
+:root {
+    --primary-color: #9b59b6;
+    --primary-color-dark: #6a1b9a;
+    --primary-color-light: #d6b4fc;
+    --accent-color: #b57edc;
+    --accent-color-2: #a66dd4;
+    --primary-gradient: linear-gradient(135deg, #b57edc 0%, #7a3db8 100%);
+    --primary-gradient-alt: linear-gradient(135deg, #a66dd4, #6a1b9a);
+    --text-color: #2f2a33;
+    --muted-text-color: #6a6670;
+    --bg-color: #f6f3fa;
+    --card-bg-color: #ffffff;
+    --card-border-color: #e9e3f3;
+    --shadow-color: rgba(106, 27, 154, 0.15);
+    --transition-fast: 0.25s ease;
+}
+.results-header {
+    background: var(--primary-gradient);
+>>>>>>> e9414c5600577b26d2ed2f3aaecc1bee4790b887
     color: white;
     margin-top: -20px;
     margin-bottom: 0;
@@ -614,27 +639,48 @@
 }
 
 .score-badge.excellent {
+<<<<<<< HEAD
     background: linear-gradient(135deg, #48bb78, #38a169);
+=======
+    background: linear-gradient(135deg, #b57edc, #7a3db8);
+>>>>>>> e9414c5600577b26d2ed2f3aaecc1bee4790b887
     color: white;
 }
 
 .score-badge.good {
+<<<<<<< HEAD
     background: linear-gradient(135deg, #4299e1, #3182ce);
+=======
+    background: linear-gradient(135deg, #a66dd4, #6a1b9a);
+>>>>>>> e9414c5600577b26d2ed2f3aaecc1bee4790b887
     color: white;
 }
 
 .score-badge.average {
+<<<<<<< HEAD
     background: linear-gradient(135deg, #ed8936, #dd6b20);
     color: white;
 }
 
 .score-badge.poor {
     background: linear-gradient(135deg, #f56565, #e53e3e);
+=======
+    background: linear-gradient(135deg, #edc0ff, #b57edc);
+    color: #3a2f45;
+}
+
+.score-badge.poor {
+    background: linear-gradient(135deg, #f2994a, #dd6b20);
+>>>>>>> e9414c5600577b26d2ed2f3aaecc1bee4790b887
     color: white;
 }
 
 .score-badge.avoid {
+<<<<<<< HEAD
     background: linear-gradient(135deg, #ad0000, #800000);
+=======
+    background: linear-gradient(135deg, #e74c3c, #ad0000);
+>>>>>>> e9414c5600577b26d2ed2f3aaecc1bee4790b887
     color: white;
 }
 
@@ -740,6 +786,7 @@
 }
 
 .progress-bar-custom.positive .fill {
+<<<<<<< HEAD
     background: linear-gradient(90deg, #48bb78, #68d391);
 }
 
@@ -749,6 +796,17 @@
 
 .progress-bar-custom.negative .fill {
     background: linear-gradient(90deg, #f56565, #fc8181);
+=======
+    background: linear-gradient(90deg, #b57edc, #7a3db8);
+}
+
+.progress-bar-custom.neutral .fill {
+    background: linear-gradient(90deg, #c9a7e8, #b57edc);
+}
+
+.progress-bar-custom.negative .fill {
+    background: linear-gradient(90deg, #e74c3c, #ff7b73);
+>>>>>>> e9414c5600577b26d2ed2f3aaecc1bee4790b887
 }
 
 /* Voice Controls */
@@ -760,21 +818,36 @@
 }
 
 .btn-voice {
+<<<<<<< HEAD
     background: linear-gradient(135deg, #667eea, #764ba2);
+=======
+    background: var(--primary-gradient);
+>>>>>>> e9414c5600577b26d2ed2f3aaecc1bee4790b887
     color: white;
     border: none;
     padding: 0.75rem 2rem;
     border-radius: 50px;
     font-size: 1.1rem;
+<<<<<<< HEAD
     font-weight: 600;
     box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+=======
+    font-weight: 700;
+    box-shadow: 0 4px 18px rgba(106, 27, 154, 0.3);
+>>>>>>> e9414c5600577b26d2ed2f3aaecc1bee4790b887
     transition: all 0.3s ease;
 }
 
 .btn-voice:hover {
     transform: translateY(-2px);
+<<<<<<< HEAD
     box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
     color: white;
+=======
+    box-shadow: 0 10px 28px rgba(106, 27, 154, 0.45);
+    color: white;
+    background: var(--primary-gradient-alt);
+>>>>>>> e9414c5600577b26d2ed2f3aaecc1bee4790b887
 }
 
 .btn-voice.speaking {
@@ -802,12 +875,20 @@
 }
 
 .pros-header {
+<<<<<<< HEAD
     background: linear-gradient(135deg, #48bb78, #38a169);
+=======
+    background: linear-gradient(135deg, #b57edc, #7a3db8);
+>>>>>>> e9414c5600577b26d2ed2f3aaecc1bee4790b887
     color: white;
 }
 
 .cons-header {
+<<<<<<< HEAD
     background: linear-gradient(135deg, #f56565, #e53e3e);
+=======
+    background: linear-gradient(135deg, #e74c3c, #ad0000);
+>>>>>>> e9414c5600577b26d2ed2f3aaecc1bee4790b887
     color: white;
 }
 
@@ -841,6 +922,7 @@
 }
 
 .positive-aspect {
+<<<<<<< HEAD
     background: linear-gradient(135deg, #f0fff4, #e6fffa);
     border-left: 4px solid #48bb78;
 }
@@ -848,6 +930,15 @@
 .negative-aspect {
     background: linear-gradient(135deg, #fff5f5, #fed7d7);
     border-left: 4px solid #f56565;
+=======
+    background: linear-gradient(135deg, #f4ecfb, #efe3fb);
+    border-left: 4px solid #b57edc;
+}
+
+.negative-aspect {
+    background: linear-gradient(135deg, #fff2f2, #ffe1e1);
+    border-left: 4px solid #e74c3c;
+>>>>>>> e9414c5600577b26d2ed2f3aaecc1bee4790b887
 }
 
 .aspect-item:hover {
@@ -894,11 +985,19 @@
 }
 
 .positive-fill {
+<<<<<<< HEAD
     background: linear-gradient(90deg, #48bb78, #68d391);
 }
 
 .negative-fill {
     background: linear-gradient(90deg, #f56565, #fc8181);
+=======
+    background: linear-gradient(90deg, #b57edc, #7a3db8);
+}
+
+.negative-fill {
+    background: linear-gradient(90deg, #e74c3c, #ff7b73);
+>>>>>>> e9414c5600577b26d2ed2f3aaecc1bee4790b887
 }
 
 .aspect-icon {
@@ -952,6 +1051,7 @@
     animation-delay: 0.4s;
 }
 
+<<<<<<< HEAD
 /* Recommendations Section */
 .recommendations-card {
     border-radius: 16px;
@@ -1189,6 +1289,8 @@
     }
 }
 
+=======
+>>>>>>> e9414c5600577b26d2ed2f3aaecc1bee4790b887
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
     .verdict-title {
@@ -1324,12 +1426,21 @@
             circle.style.strokeDasharray = circumference;
             circle.style.strokeDashoffset = circumference;
             
+<<<<<<< HEAD
             // Dynamic color based on score
             let color = '#f56565'; // red
             if (targetScore >= 30) color = '#ed8936'; // orange
             if (targetScore >= 50) color = '#4299e1'; // blue
             if (targetScore >= 70) color = '#48bb78'; // green
             if (targetScore >= 85) color = '#38a169'; // darker green
+=======
+            // Dynamic color based on score - Lilac theme
+            let color = '#e74c3c'; // red
+            if (targetScore >= 30) color = '#f2994a'; // orange
+            if (targetScore >= 50) color = '#a66dd4'; // light lilac
+            if (targetScore >= 70) color = '#b57edc'; // medium lilac
+            if (targetScore >= 85) color = '#7a3db8'; // deep lilac
+>>>>>>> e9414c5600577b26d2ed2f3aaecc1bee4790b887
             
             circle.style.stroke = color;
             
@@ -1365,12 +1476,21 @@
             circle.style.strokeDasharray = circumference;
             circle.style.strokeDashoffset = circumference;
             
+<<<<<<< HEAD
             // Dynamic color based on score
             let color = '#f56565'; // red
             if (targetScore >= 35) color = '#ed8936'; // orange
             if (targetScore >= 50) color = '#4299e1'; // blue
             if (targetScore >= 65) color = '#48bb78'; // green
             if (targetScore >= 80) color = '#38a169'; // darker green
+=======
+            // Dynamic color based on score - Lilac theme
+            let color = '#e74c3c'; // red
+            if (targetScore >= 35) color = '#f2994a'; // orange
+            if (targetScore >= 50) color = '#a66dd4'; // light lilac
+            if (targetScore >= 65) color = '#b57edc'; // medium lilac
+            if (targetScore >= 80) color = '#7a3db8'; // deep lilac
+>>>>>>> e9414c5600577b26d2ed2f3aaecc1bee4790b887
             
             circle.style.stroke = color;
             
@@ -1532,7 +1652,11 @@
 }
 
 .description-header {
+<<<<<<< HEAD
     background: linear-gradient(135deg, #667eea, #764ba2);
+=======
+    background: var(--primary-gradient);
+>>>>>>> e9414c5600577b26d2ed2f3aaecc1bee4790b887
     color: white;
 }
 
@@ -1599,27 +1723,48 @@
 }
 
 .usability-badge.excellent {
+<<<<<<< HEAD
     background: linear-gradient(135deg, #48bb78, #38a169);
+=======
+    background: linear-gradient(135deg, #b57edc, #7a3db8);
+>>>>>>> e9414c5600577b26d2ed2f3aaecc1bee4790b887
     color: white;
 }
 
 .usability-badge.good {
+<<<<<<< HEAD
     background: linear-gradient(135deg, #4299e1, #3182ce);
+=======
+    background: linear-gradient(135deg, #a66dd4, #6a1b9a);
+>>>>>>> e9414c5600577b26d2ed2f3aaecc1bee4790b887
     color: white;
 }
 
 .usability-badge.average {
+<<<<<<< HEAD
     background: linear-gradient(135deg, #ed8936, #dd6b20);
     color: white;
 }
 
 .usability-badge.poor {
     background: linear-gradient(135deg, #f56565, #e53e3e);
+=======
+    background: linear-gradient(135deg, #edc0ff, #b57edc);
+    color: #3a2f45;
+}
+
+.usability-badge.poor {
+    background: linear-gradient(135deg, #f2994a, #dd6b20);
+>>>>>>> e9414c5600577b26d2ed2f3aaecc1bee4790b887
     color: white;
 }
 
 .usability-badge.avoid {
+<<<<<<< HEAD
     background: linear-gradient(135deg, #ad0000, #800000);
+=======
+    background: linear-gradient(135deg, #e74c3c, #ad0000);
+>>>>>>> e9414c5600577b26d2ed2f3aaecc1bee4790b887
     color: white;
 }
 
@@ -1666,6 +1811,7 @@
 }
 
 .desc-item.positive {
+<<<<<<< HEAD
     background: linear-gradient(135deg, #f0fff4, #e6fffa);
     border-left: 4px solid #48bb78;
 }
@@ -1673,6 +1819,15 @@
 .desc-item.negative {
     background: linear-gradient(135deg, #fff5f5, #fed7d7);
     border-left: 4px solid #f56565;
+=======
+    background: linear-gradient(135deg, #f4ecfb, #efe3fb);
+    border-left: 4px solid #b57edc;
+}
+
+.desc-item.negative {
+    background: linear-gradient(135deg, #fff2f2, #ffe1e1);
+    border-left: 4px solid #e74c3c;
+>>>>>>> e9414c5600577b26d2ed2f3aaecc1bee4790b887
 }
 
 .desc-pros-title, .desc-cons-title {
@@ -1682,6 +1837,7 @@
 }
 
 .desc-pros-title {
+<<<<<<< HEAD
     color: #38a169;
 }
 
@@ -1854,4 +2010,14 @@
     }
 </script>
 
+=======
+    color: #7a3db8;
+}
+
+.desc-cons-title {
+    color: #e74c3c;
+}
+</style>
+
+>>>>>>> e9414c5600577b26d2ed2f3aaecc1bee4790b887
 {% endblock %}

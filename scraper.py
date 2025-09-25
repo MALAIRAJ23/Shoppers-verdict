@@ -118,8 +118,13 @@ def _scrape_with_playwright(url: str) -> dict | None:
         "//div[div[contains(., 'Certified Buyer')]]/div[1]"
     ]
     AMAZON_REVIEW_XPATHS = [
+<<<<<<< HEAD
         "//span[@data-hook='review-body']//span[not(@class)]",
         "//div[contains(@class, 'review-text-content')]/span",
+=======
+        "//div[contains(@class, 'review-text-content')]/span",
+        "//span[@data-hook='review-body']//span",
+>>>>>>> e9414c5600577b26d2ed2f3aaecc1bee4790b887
         "//div[@data-hook='review-collapsed']//span",
         "//span[contains(@class, 'cr-original-review-text')]",
         "//div[contains(@class, 'cr-original-review-text')]",
@@ -160,6 +165,32 @@ def _scrape_with_playwright(url: str) -> dict | None:
         "//div[@id='feature-bullets']",
         "//div[@id='productDescription']",
     ]
+    
+    FLIPKART_PRICE_XPATH = "//div[contains(@class, '_30jeq3')]"
+    AMAZON_PRICE_XPATH = "//span[contains(@class, 'a-price-whole')]"
+
+    # Product title selectors
+    FLIPKART_TITLE_XPATHS = [
+        "//span[contains(@class,'B_NuCI')]",
+        "//h1[contains(@class,'yhB1nd')]",
+    ]
+    AMAZON_TITLE_XPATHS = [
+        "//span[@id='productTitle']",
+    ]
+
+    # Product description/ highlights selectors
+    FLIPKART_DESC_XPATHS = [
+        "//div[text()='Description']/following::div[1]",
+        "//div[contains(@class,'_1AN87F')]/div",
+        "//div[contains(@class,'_1mXcCf')]",
+        "//div[contains(@class,'_2418kt')]",
+        "//div[@id='productDescription']//p",
+        "//div[text()='Highlights']/following::ul[1]",
+    ]
+    AMAZON_DESC_XPATHS = [
+        "//div[@id='feature-bullets']",
+        "//div[@id='productDescription']",
+    ]
 
     if 'flipkart.com' in url:
         review_xpaths = FLIPKART_REVIEW_XPATHS
@@ -182,6 +213,7 @@ def _scrape_with_playwright(url: str) -> dict | None:
         try:
             browser = p.chromium.launch(headless=True)
             page = browser.new_page()
+<<<<<<< HEAD
             
             # Set user agent to avoid detection
             page.set_extra_http_headers({
@@ -196,12 +228,27 @@ def _scrape_with_playwright(url: str) -> dict | None:
             # Scroll to load dynamic content
             scroll_count = 2 if 'amazon' in url else 3  # Less scrolling for Amazon
             for i in range(scroll_count):
+=======
+            page.goto(url, wait_until='domcontentloaded', timeout=60000)
+
+            for _ in range(5):
+>>>>>>> e9414c5600577b26d2ed2f3aaecc1bee4790b887
                 page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
                 time.sleep(0.3)  # Shorter delay
 
             # Scrape title
             title = None
             for xp in title_xpaths:
+<<<<<<< HEAD
+                try:
+                    el = page.query_selector(xp)
+                    if el:
+                        t = (el.inner_text() or '').strip()
+                        if t:
+                            title = t
+                            break
+                except Exception:
+=======
                 try:
                     el = page.query_selector(xp)
                     if el:
@@ -211,6 +258,64 @@ def _scrape_with_playwright(url: str) -> dict | None:
                             break
                 except Exception:
                     continue
+
+            # Scrape description/highlights (concatenate visible blocks)
+            description = None
+            for xp in desc_xpaths:
+                try:
+                    els = page.query_selector_all(xp)
+                    if els:
+                        texts = []
+                        for el in els:
+                            try:
+                                txt = el.inner_text().strip()
+                                if txt:
+                                    texts.append(txt)
+                            except Exception:
+                                continue
+                        if texts:
+                            # Deduplicate lines and trim
+                            seen = set()
+                            deduped = []
+                            for line in texts:
+                                if line not in seen:
+                                    seen.add(line)
+                                    deduped.append(line)
+                            description = " \n ".join(deduped)[:2000]
+                            break
+                except Exception:
+                    continue
+
+            # Scrape reviews
+            reviews = []
+            for i, xpath in enumerate(review_xpaths):
+                try:
+                    page.wait_for_selector(xpath, timeout=5000)
+                    elements = page.query_selector_all(xpath)
+                    if elements:
+                        reviews = [el.inner_text() for el in elements if el.inner_text().strip()]
+                        if reviews:
+                            print(f"Success! Found {len(reviews)} reviews with selector #{i+1}.")
+                            break
+                except PlaywrightTimeoutError:
+                    print(f"Review selector #{i+1} did not find any elements.")
+>>>>>>> e9414c5600577b26d2ed2f3aaecc1bee4790b887
+                    continue
+            
+            # Scrape price
+            price = None
+            if price_xpath:
+                try:
+                    price_element = page.query_selector(price_xpath)
+                    if price_element:
+                        price_text = price_element.inner_text()
+                        # Clean price text (e.g., "₹1,29,999" -> 129999.0)
+                        price_digits = re.sub(r'[^\d.]', '', price_text)
+                        if price_digits:
+                            price = float(price_digits)
+                            print(f"Success! Found price: {price}")
+                except Exception as e:
+                    print(f"Could not extract price: {e}")
 
             # Scrape description/highlights (concatenate visible blocks)
             description = None
@@ -348,6 +453,7 @@ def scrape_data(url: str) -> dict | None:
     # Use cached reviews if available and not expired
     if cached_data and cached_data.get('reviews'):
         reviews = cached_data['reviews']
+<<<<<<< HEAD
         print(f"Using cached reviews: {len(reviews)} reviews")
     else:
         reviews = None # Needs scraping
@@ -368,20 +474,38 @@ def scrape_data(url: str) -> dict | None:
         else:
             print("No cached data available, scraping completely failed")
             return None
+=======
+    else:
+        reviews = None # Needs scraping
+
+    # Always scrape the page to get the latest price and fresh reviews if needed
+    scraped_data = _scrape_with_playwright(url)
+
+    if scraped_data is None:
+        # If scraping fails, return cached data if it exists, otherwise fail
+        return cached_data if cached_data and cached_data.get('price_history') else None
+>>>>>>> e9414c5600577b26d2ed2f3aaecc1bee4790b887
 
     # Use scraped reviews only if we didn't have valid cached ones
     if reviews is None:
         reviews = scraped_data.get('reviews', [])
         if reviews:
+<<<<<<< HEAD
             print(f"Caching {len(reviews)} newly scraped reviews")
             _cache_reviews(url, reviews)
         else:
             print("No reviews found in scraped data")
+=======
+            _cache_reviews(url, reviews)
+>>>>>>> e9414c5600577b26d2ed2f3aaecc1bee4790b887
 
     # Always cache the newly scraped price
     if 'price' in scraped_data and scraped_data['price'] is not None:
         _cache_price(url, scraped_data['price'])
+<<<<<<< HEAD
         print(f"Cached new price: {scraped_data['price']}")
+=======
+>>>>>>> e9414c5600577b26d2ed2f3aaecc1bee4790b887
 
     # Get updated price history
     updated_cached_data = _get_cached_data(url)
@@ -390,6 +514,7 @@ def scrape_data(url: str) -> dict | None:
     # Pass through non-cached fields from latest scrape
     title = scraped_data.get('title')
     description = scraped_data.get('description')
+<<<<<<< HEAD
     
     result = {
         "reviews": reviews, 
@@ -400,6 +525,10 @@ def scrape_data(url: str) -> dict | None:
     
     print(f"Final result: {len(reviews)} reviews, title: {title[:30] if title else 'None'}...")
     return result
+=======
+
+    return {"reviews": reviews, "price_history": price_history, "title": title, "description": description}
+>>>>>>> e9414c5600577b26d2ed2f3aaecc1bee4790b887
 
 
 # --- Example for direct testing ---

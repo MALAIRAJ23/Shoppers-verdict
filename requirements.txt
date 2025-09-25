@@ -14,7 +14,10 @@ docopt==0.6.2
 en-core-web-sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.0.0/en_core_web_sm-3.0.0-py3-none-any.whl
 exceptiongroup==1.3.0
 Flask==2.0.1
+<<<<<<< HEAD
 Flask-CORS==3.0.10
+=======
+>>>>>>> e9414c5600577b26d2ed2f3aaecc1bee4790b887
 greenlet==3.2.4
 h11==0.16.0
 idna==3.10
@@ -40,7 +43,10 @@ PySocks==1.7.1
 python-dotenv==1.1.1
 regex==2025.9.1
 requests==2.32.5
+<<<<<<< HEAD
 scikit-learn==1.3.0
+=======
+>>>>>>> e9414c5600577b26d2ed2f3aaecc1bee4790b887
 selenium==4.35.0
 smart-open==6.4.0
 sniffio==1.3.1
